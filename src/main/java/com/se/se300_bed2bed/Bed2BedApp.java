@@ -16,23 +16,23 @@ import java.util.Map;
 
 public class Bed2BedApp extends Application {
     private static Stage stage;
-    private static Map<String, Scene> SceneMap = new HashMap<>();
+    private static final Map<Class<? extends FXMLController>, Scene> SceneMap = new HashMap<>();
 
-    public static void TryGoTo(String sceneName) {
-        if (SceneMap.containsKey(sceneName)) {
-            Scene scene = SceneMap.get(sceneName);
+    public static void TryGoTo(Class<? extends FXMLController> sceneClass) {
+        if (SceneMap.containsKey(sceneClass)) {
+            Scene scene = SceneMap.get(sceneClass);
             stage.setScene(scene);
         }
         else {
-            System.out.println(sceneName + " DOES NOT EXIST\n\tMaybe it isn't added to Bed2BedApp.initScenes?");
+            System.out.println(sceneClass.getName() + " DOES NOT EXIST\n\tMaybe it isn't added to Bed2BedApp.initScenes?");
         }
     }
 
     @Override
     public void start(Stage stage) {
         initScenes(stage);
-        Bed2BedApp.TryGoTo("Main");
-        stage.setTitle("Hello!");
+        Bed2BedApp.TryGoTo(MainScene.class);
+        stage.setTitle("Bed2Bed");
         stage.show();
     }
 
@@ -52,7 +52,7 @@ public class Bed2BedApp extends Application {
     private static void pushScene(Class<? extends FXMLController> className) {
         try {
             FXMLController controller = className.getConstructor().newInstance();
-            Pair<String, Scene> scenePair = controller.GET();
+            Pair<Class<? extends FXMLController>, Scene> scenePair = controller.GET();
             SceneMap.put(scenePair.getKey(), scenePair.getValue());
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException |
                  IOException e) {
