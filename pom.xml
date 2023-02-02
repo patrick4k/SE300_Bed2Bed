@@ -87,7 +87,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.se.bed2bed.se300_bed2bed/com.se.se300_bed2bed.HelloApplication
+                            <mainClass>com.se.bed2bed.se300_bed2bed/com.se.se300_bed2bed.Bed2BedApp
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
