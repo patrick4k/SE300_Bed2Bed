@@ -4,10 +4,6 @@ import com.se.se300_bed2bed.Bed2BedApp;
 import javafx.fxml.FXML;
 
 public class MapScene extends FXMLController {
-    @Override
-    protected String sceneName() {
-        return "Map";
-    }
 
     @Override
     protected String fxmlName() {
@@ -16,6 +12,6 @@ public class MapScene extends FXMLController {
 
     @FXML
     protected void backToMain() {
-        Bed2BedApp.TryGoTo("Main");
+        Bed2BedApp.TryGoTo(MainScene.class);
     }
 }
