@@ -24,7 +24,8 @@ public class Bed2BedApp extends Application {
             stage.setScene(scene);
         }
         else {
-            System.out.println(sceneClass.getName() + " DOES NOT EXIST\n\tMaybe it isn't added to Bed2BedApp.initScenes?");
+            throw new RuntimeException(sceneClass.getName() + " DOES NOT EXIST\n" +
+                    "\tMaybe it isn't added to Bed2BedApp.initScenes?");
         }
     }
 
