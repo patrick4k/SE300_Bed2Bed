@@ -8,4 +8,7 @@ module com.se.bed2bed.se300_bed2bed {
 
     opens com.se.se300_bed2bed to javafx.fxml;
     exports com.se.se300_bed2bed;
+
+    opens com.se.se300_bed2bed.scenes to javafx.fxml;
+    exports com.se.se300_bed2bed.scenes;
 }
