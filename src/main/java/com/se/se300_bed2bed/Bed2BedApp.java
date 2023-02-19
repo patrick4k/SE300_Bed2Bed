@@ -42,7 +42,8 @@ public class Bed2BedApp extends Application {
         List<Class<? extends FXMLController>> fxmlClasses = List.of(
                 // ADD SCENE CLASSES HERE
                 MainScene.class,
-                MapScene.class
+                MapScene.class,
+                DemoController.class
         );
 
         for (Class<? extends FXMLController> fxmlClass: fxmlClasses) {
