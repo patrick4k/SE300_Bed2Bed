@@ -16,7 +16,7 @@ public class IDandPasswords {
         loginInfo.put("test", "test");
         loginInfo.put("for", "for");
         loginInfo.put("idk", "idk");
-        loginInfo.get(username,password);
+//        loginInfo.get(username,password);
     }
 
     protected HashMap getLoginInfo() {

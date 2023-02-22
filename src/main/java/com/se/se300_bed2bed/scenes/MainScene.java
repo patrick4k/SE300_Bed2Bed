@@ -12,7 +12,7 @@ public class MainScene extends FXMLController {
 
     @FXML
     protected void goToMap() {
-        Bed2BedApp.TryGoTo(MapScene.class);
+        Bed2BedApp.TryGoTo(LoginScene.class);
     }
 
 }
