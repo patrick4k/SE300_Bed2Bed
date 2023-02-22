@@ -1,6 +1,7 @@
 package com.se.se300_bed2bed;
 
 import com.se.se300_bed2bed.scenes.FXMLController;
+import com.se.se300_bed2bed.scenes.LoginScene;
 import com.se.se300_bed2bed.scenes.MainScene;
 import com.se.se300_bed2bed.scenes.MapScene;
 import javafx.application.Application;
@@ -24,7 +25,8 @@ public class Bed2BedApp extends Application {
             stage.setScene(scene);
         }
         else {
-            System.out.println(sceneClass.getName() + " DOES NOT EXIST\n\tMaybe it isn't added to Bed2BedApp.initScenes?");
+            throw new RuntimeException(sceneClass.getName() + " DOES NOT EXIST\n" +
+                    "\tMaybe it isn't added to Bed2BedApp.initScenes?");
         }
     }
 
@@ -41,7 +43,8 @@ public class Bed2BedApp extends Application {
         List<Class<? extends FXMLController>> fxmlClasses = List.of(
                 // ADD SCENE CLASSES HERE
                 MainScene.class,
-                MapScene.class
+                MapScene.class,
+                LoginScene.class
         );
 
         for (Class<? extends FXMLController> fxmlClass: fxmlClasses) {

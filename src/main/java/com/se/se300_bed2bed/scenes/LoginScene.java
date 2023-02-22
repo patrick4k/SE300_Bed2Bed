@@ -22,9 +22,10 @@ public class LoginScene extends FXMLController {
     private TextField createPasswordTextField;
 
     HashMap<TextField,TextField> logininfo = new HashMap<TextField,TextField>();
-    LoginScene(HashMap<String,String> loginInfoOriginal){
-        logininfo = loginInfoOriginal;
-    }
+        // TODO not compiling
+//    LoginScene(HashMap<String,String> loginInfoOriginal){
+//        logininfo = loginInfoOriginal;
+//    }
 
     public void continueAsGuestAction(ActionEvent event) {
         Stage stage = (Stage)  continueAsGuestButton.getScene().getWindow();
@@ -50,12 +51,13 @@ public class LoginScene extends FXMLController {
 
     public void createAccountAction (ActionEvent event) {
         Stage stage = (Stage) creatAccountHyperlink.getScene().getWindow();
-        if(event.getSource() == creatAccountButton) {
-
-            String newUserID = createUsernameTextField.getText();
-            String newPassword = createPasswordTextField.getText();
-
-            logininfo.put(createPasswordTextField, createPasswordTextField);
-        }
+//        TODO not compiling
+//        if(event.getSource() == creatAccountButton) {
+//
+//            String newUserID = createUsernameTextField.getText();
+//            String newPassword = createPasswordTextField.getText();
+//
+//            logininfo.put(createPasswordTextField, createPasswordTextField);
+//        }
     }
 }
