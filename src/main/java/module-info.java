@@ -5,6 +5,8 @@ module com.se.bed2bed.se300_bed2bed {
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
     requires org.kordamp.bootstrapfx.core;
+    requires java.desktop;
+    requires java.sql;
 
     opens com.se.se300_bed2bed to javafx.fxml;
     exports com.se.se300_bed2bed;
