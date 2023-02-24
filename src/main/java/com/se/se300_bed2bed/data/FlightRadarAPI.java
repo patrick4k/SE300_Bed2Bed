@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class FlightRadarAPI extends APIDatabase {
 
     @Override
-    protected boolean CONNECT() {
+    public boolean CONNECT() {
         return false;
     }
 
