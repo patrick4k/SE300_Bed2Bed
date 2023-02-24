@@ -16,6 +16,7 @@ public class APITest {
 
     @Test
     public void testFlightRadarAPI() {
+        /* Confirms that a new instance of FlightRadarAPI can connect without error */
         FlightRadarAPI api = new FlightRadarAPI();
         boolean connectStatus = api.CONNECT();
         Assertions.assertTrue(connectStatus, "Flight API failed in connection phase");
