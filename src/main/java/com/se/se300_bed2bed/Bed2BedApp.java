@@ -1,9 +1,6 @@
 package com.se.se300_bed2bed;
 
-import com.se.se300_bed2bed.scenes.FXMLController;
-import com.se.se300_bed2bed.scenes.LoginScene;
-import com.se.se300_bed2bed.scenes.MainScene;
-import com.se.se300_bed2bed.scenes.MapScene;
+import com.se.se300_bed2bed.scenes.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -33,7 +30,7 @@ public class Bed2BedApp extends Application {
     @Override
     public void start(Stage stage) {
         initScenes(stage);
-        Bed2BedApp.TryGoTo(MainScene.class);
+        Bed2BedApp.TryGoTo(LoginScene.class);
         stage.setTitle("Bed2Bed");
         stage.show();
     }
@@ -42,9 +39,9 @@ public class Bed2BedApp extends Application {
         Bed2BedApp.stage = stage;
         List<Class<? extends FXMLController>> fxmlClasses = List.of(
                 // ADD SCENE CLASSES HERE
-                MainScene.class,
                 MapScene.class,
-                LoginScene.class
+                LoginScene.class,
+                CreateAccountScene.class
         );
 
         for (Class<? extends FXMLController> fxmlClass: fxmlClasses) {

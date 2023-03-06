@@ -1,63 +1,106 @@
 package com.se.se300_bed2bed.scenes;
 
+import com.se.se300_bed2bed.Bed2BedApp;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
-import java.util.HashMap;
+import java.io.File;
+import java.net.URL;
+import java.sql.*;
+import java.util.ResourceBundle;
 
-public class LoginScene extends FXMLController {
+public class LoginScene extends FXMLController implements Initializable {
     @Override
-    protected String fxmlName() { return "LoginScene.fxml";}
-
-    private Button continueAsGuestButton;
-    private TextField usernameTextField;
-    private TextField passwordTextField;
-    private Button loginButton;
-    private Hyperlink creatAccountHyperlink;
-    private Button getContinueAsGuestButton;
-    private TextField createUsernameTextField;
-    private TextField createPasswordTextField;
-
-    HashMap<TextField,TextField> logininfo = new HashMap<TextField,TextField>();
-        // TODO not compiling
-//    LoginScene(HashMap<String,String> loginInfoOriginal){
-//        logininfo = loginInfoOriginal;
-//    }
-
-    public void continueAsGuestAction(ActionEvent event) {
-        Stage stage = (Stage)  continueAsGuestButton.getScene().getWindow();
-        if(event.getSource() == continueAsGuestButton) {
-            MapScene map = new MapScene();
-        }
-        stage.close();
+    protected String fxmlName() {
+        return "LoginScene.fxml";
     }
-    public void loginAction(ActionEvent event) {
-        Stage stage = (Stage) loginButton.getScene().getWindow();
-        if(event.getSource() == loginButton) {
-            String userID = usernameTextField.getText();
-            String password = passwordTextField.getText();
 
-            if(logininfo.containsKey(userID)) {
-                if(logininfo.get(userID).equals(password)) {
-                    MapScene map = new MapScene();
-                }
+    @FXML
+    private Label loginMessage;
+    @FXML
+    private ImageView plane;
+    @FXML
+    private TextField username;
+    @FXML
+    private PasswordField password;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        File planeFile = new File("java/com/se/se300_bed2bed/scenes/plane.jpg.jpg");
+        Image planeImage = new Image(planeFile.toURI().toString());
+        plane.setImage(planeImage);
+    }
+
+    @FXML
+    protected void goToCreateAcct() {
+        Bed2BedApp.TryGoTo(CreateAccountScene.class);
+    }
+
+    //IN PLACE FOR START DESTINATION SCENE
+    @FXML
+    protected void goToMapScene() {
+        Bed2BedApp.TryGoTo(MapScene.class);
+    }
+
+    public void image() {
+
+    }
+
+    public void loginButton(ActionEvent event) {
+        String userName = username.getText();
+        String passWord = password.getText();
+
+        user = validateLogin(userName, passWord);
+        if (user != null) {
+
+        } else {
+            loginMessage.setText("Invalid Login. Please Try Again.");
+        }if(username.getText().isBlank() == true || password.getText().isBlank() == true){
+            loginMessage.setText("Enter a Username and Password.");
+        }
+
+    }
+
+    public UserAcct user;
+
+    private UserAcct validateLogin(String userName, String passWord) {
+        UserAcct user = null;
+
+        final String DB_URL = "jdbc:mysql://sql9.freesqldatabase.com:3306/sql9603412";
+        final String USERNAME = "sql9603412";
+        final String PASSWORD = "a3Fhikr9v9";
+
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+
+            Statement stmt = conn.createStatement();
+            String sql = "SELECT * FROM useraccount WHERE username=? AND password=?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1,userName);
+            preparedStatement.setString(2,passWord);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if(resultSet.next()){
+                user = new UserAcct();
+                user.firstName = resultSet.getString("firstName");
+                user.lastName = resultSet.getString("lastName");
+                user.username = resultSet.getString("username");
+                user.password = resultSet.getString("password");
+
+                goToMapScene();
             }
-        }
-        stage.close();
-    }
+            stmt.close();
+            conn.close();
 
-    public void createAccountAction (ActionEvent event) {
-        Stage stage = (Stage) creatAccountHyperlink.getScene().getWindow();
-//        TODO not compiling
-//        if(event.getSource() == creatAccountButton) {
-//
-//            String newUserID = createUsernameTextField.getText();
-//            String newPassword = createPasswordTextField.getText();
-//
-//            logininfo.put(createPasswordTextField, createPasswordTextField);
-//        }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 }
