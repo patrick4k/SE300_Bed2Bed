@@ -1,5 +1,6 @@
 package com.se.se300_bed2bed;
 
+import com.se.se300_bed2bed.data.FlightRadarAPI;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +16,10 @@ public class APITest {
 
     @Test
     public void testFlightRadarAPI() {
-        Assertions.fail("TODO: Flight Radar Test");
+        /* Confirms that a new instance of FlightRadarAPI can connect without error */
+        FlightRadarAPI api = new FlightRadarAPI();
+        boolean connectStatus = api.CONNECT();
+        Assertions.assertTrue(connectStatus, "Flight API failed in connection phase");
     }
 
 }
