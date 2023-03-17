@@ -30,7 +30,7 @@ public class Bed2BedApp extends Application {
     @Override
     public void start(Stage stage) {
         initScenes(stage);
-        Bed2BedApp.TryGoTo(LoginScene.class);
+        Bed2BedApp.TryGoTo(StartTrip.class);
         stage.setTitle("Bed2Bed");
         stage.show();
     }
@@ -41,7 +41,8 @@ public class Bed2BedApp extends Application {
                 // ADD SCENE CLASSES HERE
                 MapScene.class,
                 LoginScene.class,
-                CreateAccountScene.class
+                CreateAccountScene.class,
+                StartTrip.class
         );
 
         for (Class<? extends FXMLController> fxmlClass: fxmlClasses) {

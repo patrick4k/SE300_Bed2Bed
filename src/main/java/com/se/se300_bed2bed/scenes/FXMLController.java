@@ -11,10 +11,17 @@ public abstract class FXMLController {
 
     protected abstract String fxmlName();
 
+    protected Scene scene;
+
     public Pair<Class<? extends FXMLController>, Scene> GET() throws IOException {
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource(this.fxmlName()));
-        return new Pair<>(
+        this.scene = new Scene(loader.load());
+        Pair<Class<? extends FXMLController>, Scene> returnSet = new Pair<>(
                 this.getClass(), // Scene Name
-                new Scene(loader.load())); // Scene Value
+                scene); // Scene Value
+        this.onLoad();
+        return returnSet;
     }
+
+    protected void onLoad() {  /* Override for On Load Event */  }
 }
