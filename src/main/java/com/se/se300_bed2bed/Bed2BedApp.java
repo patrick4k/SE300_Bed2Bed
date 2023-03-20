@@ -32,7 +32,7 @@ public class Bed2BedApp extends Application {
     @Override
     public void start(Stage stage) {
         initScenes(stage);
-        Bed2BedApp.TryGoTo(StartTrip.class);
+        Bed2BedApp.TryGoTo(GoogleMapScene.class);
         stage.setTitle("Bed2Bed");
         stage.show();
     }
@@ -44,7 +44,7 @@ public class Bed2BedApp extends Application {
                 MapScene.class,
                 LoginScene.class,
                 CreateAccountScene.class,
-                StartTrip.class
+                GoogleMapScene.class
         );
 
         for (Class<? extends FXMLController> fxmlClass: fxmlClasses) {
@@ -52,9 +52,9 @@ public class Bed2BedApp extends Application {
         }
     }
 
-    private static void pushScene(Class<? extends FXMLController> className) {
+    private static void pushScene(Class<? extends FXMLController> classType) {
         try {
-            FXMLController controller = className.getConstructor().newInstance();
+            FXMLController controller = classType.getConstructor().newInstance();
             Pair<Class<? extends FXMLController>, Scene> scenePair = controller.GET();
             SceneMap.put(scenePair.getKey(), scenePair.getValue());
             SceneControllerMap.put(scenePair.getKey(), controller);

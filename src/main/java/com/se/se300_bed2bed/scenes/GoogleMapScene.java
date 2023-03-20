@@ -6,10 +6,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.events.EventTarget;
 
 import java.net.URL;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class StartTrip extends FXMLController {
+public class GoogleMapScene extends FXMLController {
     @Override
     protected String fxmlName() {
         return "StartTrip.fxml";
@@ -19,12 +17,12 @@ public class StartTrip extends FXMLController {
 
     @Override
     public void onGoTo() {
-//        this.loadGetCarTrnsportHTML();
-        this.loadDistanceHMTL();
+        this.loadGetCarTrnsportHTML();
+//        this.loadDistanceHMTL();
     }
 
     private void loadGetCarTrnsportHTML() {
-        String to = "St. Petersburg FL";
+        String to = "Daytona Beach FL";
         String from = "Orlando FL";
 
         AnchorPane pane = (AnchorPane) this.scene.getRoot().lookup("#pane");
@@ -35,16 +33,15 @@ public class StartTrip extends FXMLController {
         webView.getEngine().load(url.toString());
 
         webView.getEngine().documentProperty().addListener((v, o, document) -> {
-            if (document != null) {
-                EventTarget click = (EventTarget) document.getElementById("eventHolder");
-                click.addEventListener("click", (ev) -> {
-                    System.out.println(document.getElementById("output").getTextContent());
-                }, false);
+            if (document == null) return;
+            EventTarget click = (EventTarget) document.getElementById("eventHolder");
+            click.addEventListener("click", (ev) -> {
+                System.out.println(document.getElementById("output").getTextContent());
+            }, false);
 
-                webView.getEngine().executeScript("to = \""   + to   + "\";"
-                        +   "from = \"" + from + "\";"
-                        +   "calcRoute();");
-            }
+            webView.getEngine().executeScript("to = \""   + to   + "\";"
+                    +   "from = \"" + from + "\";"
+                    +   "calcRoute();");
         });
 
         webView.setPrefWidth(pane.getPrefWidth());
@@ -63,11 +60,14 @@ public class StartTrip extends FXMLController {
 
         webView.getEngine().documentProperty().addListener((v, o, document) -> {
             if (document == null) return;
+
             Element btn = document.getElementById("goButton");
+
             ((EventTarget) btn).addEventListener("click", (ev) -> {
                 Object outputObj = webView.getEngine().executeScript("calcRoute();");
                 System.out.println(outputObj);
             },false);
+
         });
 
         webView.setPrefWidth(pane.getPrefWidth());
