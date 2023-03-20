@@ -1,20 +1,11 @@
 package com.se.se300_bed2bed.scenes;
 
-import javafx.event.EventHandler;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.SubScene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebEvent;
 import javafx.scene.web.WebView;
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.w3c.dom.events.EventTarget;
 
 import java.net.URL;
-import java.util.Timer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,22 +18,32 @@ public class StartTrip extends FXMLController {
     protected WebView webView;
 
     @Override
-    protected void onLoad() {
+    public void onGoTo() {
+//        this.loadGetCarTrnsportHTML();
+        this.loadDistanceHMTL();
+    }
+
+    private void loadGetCarTrnsportHTML() {
+        String to = "St. Petersburg FL";
+        String from = "Orlando FL";
+
         AnchorPane pane = (AnchorPane) this.scene.getRoot().lookup("#pane");
 
         this.webView = new WebView();
-        URL url = this.getClass().getResource("Distance.html");
+        URL url = this.getClass().getResource("GetCarTransport.html");
         assert url != null;
         webView.getEngine().load(url.toString());
 
-
         webView.getEngine().documentProperty().addListener((v, o, document) -> {
             if (document != null) {
-                Element btn = document.getElementById("goButton");
-                ((EventTarget) btn).addEventListener("click", (ev) -> {
-                    webView.getEngine().executeScript("calcRoute();");
-                    onGo(document);
-                },false);
+                EventTarget click = (EventTarget) document.getElementById("eventHolder");
+                click.addEventListener("click", (ev) -> {
+                    System.out.println(document.getElementById("output").getTextContent());
+                }, false);
+
+                webView.getEngine().executeScript("to = \""   + to   + "\";"
+                        +   "from = \"" + from + "\";"
+                        +   "calcRoute();");
             }
         });
 
@@ -50,33 +51,29 @@ public class StartTrip extends FXMLController {
         webView.setPrefHeight(pane.getPrefHeight());
 
         pane.getChildren().add(webView);
-        super.onLoad();
     }
 
-    private void onGo(Document document) {
-        String outputContent = "";
-        Element output = null;
-        while (output == null) {
-            output = document.getElementById("output");
-        }
+    private void loadDistanceHMTL() {
+        AnchorPane pane = (AnchorPane) this.scene.getRoot().lookup("#pane");
 
-        outputContent = output.getTextContent();
+        this.webView = new WebView();
+        URL url = this.getClass().getResource("Distance.html");
+        assert url != null;
+        webView.getEngine().load(url.toString());
 
-        System.out.println(outputContent);
+        webView.getEngine().documentProperty().addListener((v, o, document) -> {
+            if (document == null) return;
+            Element btn = document.getElementById("goButton");
+            ((EventTarget) btn).addEventListener("click", (ev) -> {
+                Object outputObj = webView.getEngine().executeScript("calcRoute();");
+                System.out.println(outputObj);
+            },false);
+        });
 
-        Pattern outputParser = Pattern.compile("From:(.*)To:(.*)Driving Distance:(.*)Duration:(.*)");
-        Matcher matcher = outputParser.matcher(outputContent);
-        if (matcher.find())
-            System.out.println("Match!");
-        else System.out.println("No match");
+        webView.setPrefWidth(pane.getPrefWidth());
+        webView.setPrefHeight(pane.getPrefHeight());
 
-        System.out.println(matcher.group(0));
-        System.out.println(matcher.group(1));
-        System.out.println(matcher.group(2));
-        System.out.println(matcher.group(3));
-        System.out.println(matcher.group(4));
-
-//        System.out.println("Distance: " + distanceNode.getTextContent());
-//        System.out.println("Duration: " + durationNode.getTextContent());
+        pane.getChildren().add(webView);
     }
+
 }

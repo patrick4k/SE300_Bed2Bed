@@ -15,11 +15,13 @@ import java.util.Map;
 public class Bed2BedApp extends Application {
     private static Stage stage;
     private static final Map<Class<? extends FXMLController>, Scene> SceneMap = new HashMap<>();
+    private static final Map<Class<? extends FXMLController>, FXMLController> SceneControllerMap = new HashMap<>();
 
     public static void TryGoTo(Class<? extends FXMLController> sceneClass) {
         if (SceneMap.containsKey(sceneClass)) {
             Scene scene = SceneMap.get(sceneClass);
             stage.setScene(scene);
+            SceneControllerMap.get(sceneClass).onGoTo();
         }
         else {
             throw new RuntimeException(sceneClass.getName() + " DOES NOT EXIST\n" +
@@ -55,8 +57,8 @@ public class Bed2BedApp extends Application {
             FXMLController controller = className.getConstructor().newInstance();
             Pair<Class<? extends FXMLController>, Scene> scenePair = controller.GET();
             SceneMap.put(scenePair.getKey(), scenePair.getValue());
-        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException |
-                 IOException e) {
+            SceneControllerMap.put(scenePair.getKey(), controller);
+        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException | IOException e) {
             throw new RuntimeException(e);
         }
     }

@@ -54,6 +54,7 @@ function calcRoute()
             output.innerHTML = "<div class='alert-danger'> Could Not Retreive Driving Distance. </div>";
         }
     });
+    return document.getElementById("from").value + " -> " + document.getElementById("to").value;
 }
 
 

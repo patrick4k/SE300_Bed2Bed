@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<p id="output">NO OUTPUT</p>
+<div id="googleMap"></div>
+<button id="eventHolder"></button>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjwa3cDQZbkgCDP5K5MveLJ85m8IZfGPM&libraries=places"></script>
+<script>
+    'use strict';
+
+    /* Init Google Maps */
+    let to, from;
+    const directionsService = new google.maps.DirectionsService();
+
+    function calcRoute() {
+
+      /* Generate request */
+      let request = {
+          origin: from,
+          destination: to,
+          travelMode: google.maps.TravelMode.DRIVING, //WALKING, BYCYCLING, TRANSIT
+          unitSystem: google.maps.UnitSystem.IMPERIAL
+      }
+
+      /* Post request */
+      directionsService.route(request,
+
+          // Add action on route completed
+          (result, status) => {
+
+              // Set output text to results desired
+              document.getElementById("output").innerHTML = JSON.stringify({
+                  to: to,
+                  from: from,
+                  distance: result.routes[0].legs[0].distance.text,
+                  duration: result.routes[0].legs[0].duration.text
+              });
+
+              // Activate event holder click event to trigger java response
+              document.getElementById("eventHolder").click();
+
+          }
+      );
+    }
+
+</script>
+</body>
+</html>

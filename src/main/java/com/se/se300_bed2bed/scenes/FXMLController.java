@@ -24,4 +24,5 @@ public abstract class FXMLController {
     }
 
     protected void onLoad() {  /* Override for On Load Event */  }
+    public void onGoTo() {  /* Override for On GoTo Event */  }
 }
