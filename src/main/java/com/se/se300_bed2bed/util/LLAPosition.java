@@ -1,6 +1,8 @@
 package com.se.se300_bed2bed.util;
 
-public class LLAPosition {
+import java.io.Serializable;
+
+public class LLAPosition implements Serializable {
 
     /* Constructor */
     public LLAPosition(double longitude, double latitude) {
@@ -9,8 +11,8 @@ public class LLAPosition {
 
 
     /* Attributes */
-    private double longitude;
-    private double latitude;
+    public double longitude;
+    public double latitude;
 
 
     /* Getters */
