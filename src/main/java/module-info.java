@@ -1,6 +1,7 @@
 module com.se.bed2bed.se300_bed2bed {
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.web;
 
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
