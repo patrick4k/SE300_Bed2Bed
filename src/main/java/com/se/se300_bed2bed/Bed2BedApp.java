@@ -41,7 +41,8 @@ public class Bed2BedApp extends Application {
                 // ADD SCENE CLASSES HERE
                 MapScene.class,
                 LoginScene.class,
-                CreateAccountScene.class
+                CreateAccountScene.class,
+                GoogleMapScene.class
         );
 
         for (Class<? extends FXMLController> fxmlClass: fxmlClasses) {
