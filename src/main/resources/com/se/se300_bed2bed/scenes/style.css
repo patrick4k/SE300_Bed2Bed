@@ -1,0 +1,35 @@
+body {
+    color: #2592f2;
+    font-family: "Poppins", sans-serif;
+}
+
+.jumbotron{
+background-color: transparent;
+margin: 0;
+padding: 10px;
+}
+
+.jumbotron h1{
+    font-size: 2em;
+    font-weight: bold;
+    }
+
+#googleMap {
+    width: 100%;
+    height: 1000px;
+    margin: 0px;
+}
+
+.mode {
+    margin: 20px;
+    border-color: #2592f2;
+}
+
+.btn {
+    margin: 10px auto;
+    height: 30px;
+    width: 30px auto;
+    font-size: 14px;
+    background-color: greenyellow;
+
+}
