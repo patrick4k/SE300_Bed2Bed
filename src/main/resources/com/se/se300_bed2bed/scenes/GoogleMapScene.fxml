@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.web.*?>
 
 <AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.se.se300_bed2bed.scenes.GoogleMapScene">
    <children>
       <WebView fx:id="mapView" layoutX="14.0" layoutY="14.0" prefHeight="550.0" prefWidth="600.0" />
+      <ChoiceBox fx:id="methodOfTravel" layoutX="689.0" layoutY="47.0" prefHeight="38.0" prefWidth="169.0" />
+      <Label fx:id="MOTlabel" layoutX="701.0" layoutY="58.0" text="Method of Travel" />
    </children>
 </AnchorPane>

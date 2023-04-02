@@ -1,7 +1,10 @@
 package com.se.se300_bed2bed.scenes;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.web.WebView;
 import javafx.scene.web.WebEngine;
 
@@ -19,13 +22,36 @@ public class GoogleMapScene extends FXMLController implements Initializable {
 
     private WebEngine engine;
 
+    @FXML
+    private ChoiceBox<String> methodOfTravel;
+
+    @FXML
+    private Label MOTlabel;
+
+
+    // TO-DO: Cost association
+    private String[] travelMethods = {"DRIVING", "WALKING", "BICYCLING", "TRANSIT"};
     @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
-        engine = mapView.getEngine();
-        loadPage();
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        methodOfTravel.getItems().addAll(travelMethods);
+        methodOfTravel.setOnAction(this::changeMOT);
+        changeMap();
     }
 
-    public void loadPage() {
-        engine.load("file:///C:/Users/Andrea/AppData/Local/Temp/Temp1_gtfiles%20(1).zip/gtfiles/MapDisplay.html");
+    public void changeMOT(ActionEvent event) {
+        String changeMethod = methodOfTravel.getValue();
+        MOTlabel.setText("");
+    }
+
+    public void changeMap() {
+        if(travelMethods.equals("DRIVING")) {
+            //TO-DO: change map to reflect route with driving path
+        } else if (travelMethods.equals("WALKING")) {
+            //TO-DO: change map to reflect route with walking path
+        } else if (travelMethods.equals("BICYCLING")) {
+            //TO-DO: change map to reflect route with Bicycling path
+        }else {
+            //TO-DO: change map to reflect route with transit path
+        }
     }
 }
