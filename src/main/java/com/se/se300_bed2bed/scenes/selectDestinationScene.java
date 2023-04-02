@@ -35,6 +35,7 @@ public class selectDestinationScene extends FXMLController{
         Bed2BedApp.TryGoTo(GoogleMapScene.class);
     }
 
+    /*
     public void autoComplete(ActionEvent event) {
         String from = originText.getText();
         String to = destinationText.getText();
@@ -47,5 +48,5 @@ public class selectDestinationScene extends FXMLController{
         webView.getEngine().executeScript(from + to + "autoComplete();");
 
     }
-
+*/
 }
