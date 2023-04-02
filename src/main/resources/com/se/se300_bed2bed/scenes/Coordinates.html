@@ -19,11 +19,11 @@
         // call geocode
         geocode();
         function geocode() {
-            var location = '1 Aerospace Blvd Daytona Beach FL'
+            let start, end;
 
             axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
                 params: {
-                    address: location,
+                    address: [start,end]
                     key: 'AIzaSyBjwa3cDQZbkgCDP5K5MveLJ85m8IZfGPM'
                 }
 

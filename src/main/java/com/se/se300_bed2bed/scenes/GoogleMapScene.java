@@ -73,4 +73,6 @@ public class GoogleMapScene extends FXMLController implements Initializable {
 
     public void saveButton(ActionEvent event) {
     }
+
+
 }

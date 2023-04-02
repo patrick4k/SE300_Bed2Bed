@@ -6,8 +6,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import javafx.util.Pair;
+import org.w3c.dom.events.EventTarget;
 
 import java.io.IOException;
 import java.net.URL;
@@ -49,4 +51,26 @@ public class selectDestinationScene extends FXMLController{
 
     }
 */
+
+    public void getCoords(ActionEvent event) {
+
+        String start = originText.getText();
+        String end = destinationText.getText();
+
+        this.webView = new WebView();
+        URL url = this.getClass().getResource("Coordinates.html");
+        assert url != null;
+        webView.getEngine().load(url.toString());
+
+        webView.getEngine().documentProperty().addListener((v, o, document) -> {
+            if (document == null) return;
+            EventTarget click = (EventTarget) document.getElementById("eventHolder");
+            click.addEventListener("click", (ev) -> {
+                System.out.println(document.getElementById("lat").getTextContent());
+            }, false);
+
+            webView.getEngine().executeScript("lat = \"" + "lng = \"" );
+
+        });
+    }
 }
