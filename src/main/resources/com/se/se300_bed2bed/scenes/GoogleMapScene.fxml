@@ -2,12 +2,46 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.web.*?>
 
 <AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.se.se300_bed2bed.scenes.GoogleMapScene">
    <children>
       <WebView fx:id="mapView" layoutX="14.0" layoutY="14.0" prefHeight="550.0" prefWidth="600.0" />
-      <ChoiceBox fx:id="methodOfTravel" layoutX="689.0" layoutY="47.0" prefHeight="38.0" prefWidth="169.0" />
-      <Label fx:id="MOTlabel" layoutX="701.0" layoutY="58.0" text="Method of Travel" />
+      <ChoiceBox fx:id="methodOfTravel" layoutX="677.0" layoutY="125.0" prefHeight="38.0" prefWidth="169.0" />
+      <Label fx:id="MOTlabel" layoutX="697.0" layoutY="134.0" text="Method of Travel">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+      <Label layoutX="681.0" layoutY="205.0" text="MOT">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="681.0" layoutY="290.0" text="MOT">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="681.0" layoutY="387.0" text="MOT">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button fx:id="saveButton" layoutX="662.0" layoutY="535.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="69.0" text="Save">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="addTRipButton" layoutX="789.0" layoutY="535.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="104.0" text="+  Add Trip ">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="14.0" layoutX="862.0" layoutY="23.0" stroke="BLACK" strokeType="INSIDE" width="15.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="14.0" layoutX="862.0" layoutY="43.0" stroke="BLACK" strokeType="INSIDE" width="15.0" />
+      <Label layoutX="885.0" layoutY="22.0" text="Cheapest" />
+      <Label layoutX="885.0" layoutY="42.0" text="Quickest" />
    </children>
 </AnchorPane>
