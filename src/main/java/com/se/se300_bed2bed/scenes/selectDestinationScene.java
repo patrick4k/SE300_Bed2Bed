@@ -17,6 +17,7 @@ public class selectDestinationScene extends FXMLController{
 
     LLAPosition getCoords(double latitude, double longitude) {
 
+
         return null;
     }
 
