@@ -83,7 +83,6 @@ public class LoginScene extends FXMLController implements Initializable {
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1,userName);
             preparedStatement.setString(2,passWord);
-
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if(resultSet.next()){
