@@ -1,5 +1,6 @@
 package com.se.se300_bed2bed.scenes;
 
+import com.se.se300_bed2bed.util.LLAPosition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,6 +18,11 @@ public class GoogleMapScene extends FXMLController implements Initializable {
         return "GoogleMapScene.fxml";
     }
 
+    LLAPosition costCalc (double longitude, double latitude) {
+
+        return null;
+    }
+
     @FXML
     private WebView mapView;
 
@@ -30,7 +36,7 @@ public class GoogleMapScene extends FXMLController implements Initializable {
 
 
     // TO-DO: Cost association
-    private String[] travelMethods = {"DRIVING", "WALKING", "BICYCLING", "TRANSIT"};
+    private String[] travelMethods = {"DRIVING", "WALKING: $0", "BICYCLING: $0", "TRANSIT", "RIDE SHARE"};
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         methodOfTravel.getItems().addAll(travelMethods);
@@ -50,8 +56,10 @@ public class GoogleMapScene extends FXMLController implements Initializable {
             //TO-DO: change map to reflect route with walking path
         } else if (travelMethods.equals("BICYCLING")) {
             //TO-DO: change map to reflect route with Bicycling path
-        }else {
+        }else if (travelMethods.equals("TRANSIT")){
             //TO-DO: change map to reflect route with transit path
+        }else {
+            //TO-DO: change map to reflect route with driving path
         }
     }
 }
