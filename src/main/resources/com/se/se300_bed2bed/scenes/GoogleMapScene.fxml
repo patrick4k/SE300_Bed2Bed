@@ -13,17 +13,17 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <Label layoutX="633.0" layoutY="279.0" text="MOT">
+      <Label layoutX="633.0" layoutY="279.0" prefHeight="20.0" prefWidth="239.0" text="Distance: ">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="633.0" layoutY="310.0" text="MOT">
+      <Label layoutX="633.0" layoutY="310.0" prefHeight="20.0" prefWidth="239.0" text="Duration: ">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="633.0" layoutY="339.0" text="MOT">
+      <Label layoutX="633.0" layoutY="339.0" prefHeight="20.0" prefWidth="239.0" text="Cost: ">
          <font>
             <Font size="14.0" />
          </font>
