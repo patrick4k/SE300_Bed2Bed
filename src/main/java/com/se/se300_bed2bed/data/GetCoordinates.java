@@ -13,7 +13,11 @@ public class GetCoordinates {
         assert url != null;
         webView.getEngine().load(url.toString());
 
-        //webView.getEngine().executeScript(location+"\"+ "geocode();");
+        webView.getEngine().executeScript("location = \"" + location + "lat = \"" + "lng = \"");
+    }
 
+    public static void main(String[] args) {
+        GetCoordinates gc = new GetCoordinates();
+        gc.getCoords();
     }
 }
