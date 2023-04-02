@@ -41,7 +41,7 @@ public class selectDestinationScene extends FXMLController{
         String to = destinationText.getText();
 
         this.webView = new WebView();
-        URL url = this.getClass().getResource("AutoComplete.html");
+        URL url = this.getClass().getResource("GetCoordinates.html");
         assert url != null;
         webView.getEngine().load(url.toString());
 
