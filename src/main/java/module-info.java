@@ -7,6 +7,7 @@ module com.se.bed2bed.se300_bed2bed {
     requires org.kordamp.bootstrapfx.core;
     requires java.desktop;
     requires java.sql;
+    requires amadeus.java;
 
     opens com.se.se300_bed2bed to javafx.fxml;
     exports com.se.se300_bed2bed;
