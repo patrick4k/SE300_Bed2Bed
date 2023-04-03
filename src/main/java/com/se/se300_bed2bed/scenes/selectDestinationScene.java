@@ -5,6 +5,7 @@ import com.se.se300_bed2bed.util.LLAPosition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
@@ -24,6 +25,9 @@ public class selectDestinationScene extends FXMLController{
     @FXML
     private TextField destinationText;
 
+    @FXML
+    private Button getCoordinates;
+
     protected WebView webView;
 
 
@@ -37,22 +41,7 @@ public class selectDestinationScene extends FXMLController{
         Bed2BedApp.TryGoTo(GoogleMapScene.class);
     }
 
-    /*
-    public void autoComplete(ActionEvent event) {
-        String from = originText.getText();
-        String to = destinationText.getText();
-
-        this.webView = new WebView();
-        URL url = this.getClass().getResource("GetCoordinates.html");
-        assert url != null;
-        webView.getEngine().load(url.toString());
-
-        webView.getEngine().executeScript(from + to + "autoComplete();");
-
-    }
-*/
-
-    public void getCoords(ActionEvent event) {
+    public void getCoordinates(ActionEvent event) {
 
         String start = originText.getText();
         String end = destinationText.getText();
@@ -73,4 +62,6 @@ public class selectDestinationScene extends FXMLController{
 
         });
     }
+
+
 }

@@ -66,13 +66,10 @@ public class GoogleMapScene extends FXMLController implements Initializable {
 
         }
     }
-
     public void addTripButton(ActionEvent event) {
         Bed2BedApp.TryGoTo(selectDestinationScene.class);
     }
-
     public void saveButton(ActionEvent event) {
     }
-
 
 }

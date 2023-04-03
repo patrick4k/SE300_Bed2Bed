@@ -5,7 +5,8 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.se.se300_bed2bed.scenes.SelectDestinationScene">
    <children>
-      <TextField fx:id="originText" layoutX="45.0" layoutY="82.0" onAction="#autoComplete" prefHeight="42.0" prefWidth="216.0" promptText="Origin" />
+      <TextField fx:id="originText" layoutX="45.0" layoutY="82.0" prefHeight="42.0" prefWidth="216.0" promptText="Origin" />
       <TextField fx:id="destinationText" layoutX="45.0" layoutY="142.0" onAction="#autoComplete" prefHeight="42.0" prefWidth="216.0" promptText="Destination" />
+      <Button fx:id="getCoordinates" layoutX="45.0" layoutY="220.0" mnemonicParsing="false" onAction="#getCoordinates" text="Go" />
    </children>
 </AnchorPane>
