@@ -16,24 +16,31 @@
       <console name="Connection" type="STANDARD" schema="amitdb" session="Main" />
     </connection>
     <connection id="adeb1dc8-94fb-44ab-86e6-df29734151b7">
-      <console name="MYSQL Connection" type="STANDARD" schema="sql9603412" session="Main" />
+      <console name="MYSQL Connection" type="STANDARD" schema="sql9603412" session="Main"><![CDATA[ALTER TABLE useraccount 
+ADD saved_data VARCHAR(255);]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="adeb1dc8-94fb-44ab-86e6-df29734151b7" object-ref="schemas/sql9603412/tables/useraccount" />
-    </open-files>
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
     <filter-actions connection-id="adeb1dc8-94fb-44ab-86e6-df29734151b7" dataset="sql9603412.useraccount" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="5d936bb6-83f2-47f1-8733-50e983ae6ce2" dataset="amitdb.useraccount" active-filter-id="EMPTY_FILTER" />
   </component>
+  <component name="DBNavigator.Project.ExecutionManager">
+    <retain-sticky-names value="false" />
+  </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
     <filters />
+  </component>
+  <component name="DBNavigator.Project.ScriptExecutionManager" clear-outputs="true">
+    <recently-used-interfaces>
+      <mapping database-type="MYSQL" interface-id="DEFAULT" />
+    </recently-used-interfaces>
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
@@ -603,5 +610,8 @@
         </visibility-settings>
       </environment>
     </general-settings>
+  </component>
+  <component name="DBNavigator.Project.StatementExecutionManager">
+    <execution-variables />
   </component>
 </project>

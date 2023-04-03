@@ -11,8 +11,8 @@ public class LLAPosition implements Serializable {
 
 
     /* Attributes */
-    public double longitude;
-    public double latitude;
+    private double longitude;
+    private double latitude;
 
 
     /* Getters */
