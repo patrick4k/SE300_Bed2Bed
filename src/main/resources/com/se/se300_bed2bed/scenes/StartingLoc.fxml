@@ -26,7 +26,7 @@
       </Label>
       <TextField layoutX="150.0" layoutY="107.0" />
       <TextField layoutX="150.0" layoutY="151.0" />
-      <Button layoutX="50.0" layoutY="260.0" mnemonicParsing="false" text="Continue">
+      <Button layoutX="50.0" layoutY="260.0" mnemonicParsing="false" style="-fx-background-color: #2592f2;" text="Continue" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -35,7 +35,7 @@
       <DatePicker layoutX="390.0" layoutY="107.0" />
       <Label layoutX="320.0" layoutY="107.0" text="Departing :">
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font size="14.0" />
          </font>
       </Label>
    </children>
