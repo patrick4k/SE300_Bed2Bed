@@ -1,14 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.se.se300_bed2bed.scenes.StartingLoc"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.se.se300_bed2bed.scenes.StartingLoc">
+   <children>
+      <Label layoutX="50.0" layoutY="48.0" text="Enter Your Trip Information  " textFill="#2592f2">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="50.0" layoutY="107.0" text="Leaving from : ">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label layoutX="50.0" layoutY="155.0" text="Going to :">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label layoutX="50.0" layoutY="200.0" text="Saved Trips">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField layoutX="150.0" layoutY="107.0" />
+      <TextField layoutX="150.0" layoutY="151.0" />
+      <Button layoutX="50.0" layoutY="260.0" mnemonicParsing="false" text="Continue">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <ChoiceBox layoutX="150.0" layoutY="195.0" prefWidth="150.0" />
+      <DatePicker layoutX="390.0" layoutY="107.0" />
+      <Label layoutX="320.0" layoutY="107.0" text="Departing :">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+   </children>
 </AnchorPane>

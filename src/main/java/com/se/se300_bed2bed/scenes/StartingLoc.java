@@ -5,4 +5,5 @@ public class StartingLoc extends FXMLController {
     protected String fxmlName() {
         return "StartingLoc.fxml";
     }
+
 }
