@@ -7,6 +7,7 @@
 </head>
 <body>
 <p id = "output" ></p>
+<button id = "eventHolder"></button>
 <script src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBjwa3cDQZbkgCDP5K5MveLJ85m8IZfGPM&libraries=places"></script>    
     
     <script>
@@ -89,8 +90,8 @@
                     distance: result.routes[0].legs[0].distance.text,
                     duration: result.routes[0].legs[0].duration.text
                 });
+                document.getElementById("eventHolder").click();
             });
-    
         }
        calcRoute(-1);
     

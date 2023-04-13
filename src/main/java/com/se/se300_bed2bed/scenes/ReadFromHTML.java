@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.web.WebEngine;
 import org.w3c.dom.Text;
+import org.w3c.dom.events.EventTarget;
 
 import java.net.URL;
 
@@ -29,28 +30,30 @@ public class ReadFromHTML extends FXMLController {
         GoogleMapsCalculations( );
     }
 
-    @Override
-    protected void onload() {
-        URL url = this.getClass().getResource("GoogleMapCalculations.html");
-        assert url!= null;
-        engine.load(url.toString());
-    }
-
-    public void GoogleMapsCalculations ( ) {
+    public void GoogleMapsCalculations() {
 
         // CHANGE TO BURTE SCENE TEXTIDs ***
         String startLocation = originText.getText();
         String endLocation = destinationText.getText();
 
-        //System.out.println(document.getElementById("output").getContent());
+        URL url = this.getClass().getResource("GoogleMapCalculations.html");
+        assert url!= null;
+        engine.load(url.toString());
 
-        System.out.println("from=\"" + startLocation + "\";to=\"" + endLocation + "\";calcRoute(0);");
+        engine.documentProperty().addListener((v, o, document) -> {
+            if (document == null) return;
+            EventTarget click = (EventTarget) document.getElementById("eventHolder");
+            click.addEventListener("click", (ev) -> {
+                System.out.println(document.getElementById("output").getTextContent());
+            }, false);
 
-        engine.executeScript("from=\"" + startLocation + "\";");
-        engine.executeScript("to=\"" + endLocation + "\";");
-        engine.executeScript("calcRoute(0);");
-//        engine.executeScript("from='" + startLocation + "';to='" + endLocation + "';calcRoute(1);");
-//        engine.executeScript("from='" + startLocation + "';to='" + endLocation + "';calcRoute(2);");
-//        engine.executeScript("from='" + startLocation + "';to='" + endLocation + "';calcRoute(3);");
+            engine.executeScript("to = \"" + startLocation + "\";"
+                    +   "from = \"" + endLocation + "\";"
+                    +   "calcRoute(0);"
+                    +   "calcRoute(1);"
+                    +   "calcRoute(2);"
+                    +   "calcRoute(3);");
+        });
+
     }
 }
