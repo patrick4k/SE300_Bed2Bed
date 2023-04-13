@@ -7,7 +7,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.se.se300_bed2bed.scenes.GoogleMapScene">
    <children>
-      <WebView fx:id="mapView" layoutX="14.0" layoutY="14.0" prefHeight="550.0" prefWidth="600.0" />
+      <WebView fx:id="mapView" layoutX="14.0" layoutY="14.0" onDragDetected="#getMapDisplay" prefHeight="550.0" prefWidth="600.0" />
       <ChoiceBox fx:id="methodOfTravel" layoutX="627.0" layoutY="236.0" prefHeight="27.0" prefWidth="132.0" />
       <Label fx:id="MOTlabel" layoutX="633.0" layoutY="241.0" text="Method of Travel">
          <font>

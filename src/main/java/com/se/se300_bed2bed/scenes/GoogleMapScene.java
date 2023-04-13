@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import javafx.scene.web.WebEngine;
 
@@ -70,6 +71,16 @@ public class GoogleMapScene extends FXMLController implements Initializable {
         Bed2BedApp.TryGoTo(selectDestinationScene.class);
     }
     public void saveButton(ActionEvent event) {
+    }
+
+    public void getMapDisplay(ActionEvent event) {
+
+        this.mapView = new WebView();
+        URL url = this.getClass().getResource("MapDisplay.html");
+        assert url != null;
+        mapView.getEngine().load(url.toString());
+
+        mapView.getEngine().executeScript("");
     }
 
 }
