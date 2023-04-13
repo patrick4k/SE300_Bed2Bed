@@ -1,11 +1,25 @@
 package com.se.se300_bed2bed.data;
 
+import com.se.se300_bed2bed.scenes.FXMLController;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
 import javafx.scene.web.WebEngine;
+import org.w3c.dom.Text;
 
 import java.net.URL;
 
-public class ReadFromHTML {
+public class ReadFromHTML extends FXMLController {
+
+    @Override
+    protected String fxmlName() {
+        return "selectDestinationScene.fxml";
+    }
+
+    @FXML
+    TextField originText;
+    @FXML
+    TextField destinationText;
 
     public void searchButton (ActionEvent event) {
         GoogleMapsCalculations("Daytona Beach FL", "Orlando FL");
@@ -13,10 +27,11 @@ public class ReadFromHTML {
 
     public void GoogleMapsCalculations (String startLocation, String endLocation) {
 
-        startLocation = "";
-        endLocation = "";
-
         WebEngine engine = new WebEngine();
+
+        startLocation = originText.getText();
+        endLocation = destinationText.getText();
+
 
         URL url = this.getClass().getResource("GoogleMapsCalculations.html");
         assert url!= null;
@@ -24,7 +39,8 @@ public class ReadFromHTML {
 
         //System.out.println(document.getElementById("output").getContent());
 
-        engine.executeScript("from" + "to" + "calcRoute();");
+        engine.executeScript("from" + startLocation + "to" + endLocation + "calcRoute();");
     }
+
 
 }

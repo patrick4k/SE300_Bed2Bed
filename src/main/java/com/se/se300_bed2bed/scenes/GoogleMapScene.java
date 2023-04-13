@@ -35,7 +35,6 @@ public class GoogleMapScene extends FXMLController implements Initializable {
     private Button saveButton;
 
     public ArrayList trips = new ArrayList();
-    selectDestinationScene latLong = new selectDestinationScene();
 
 
     // TO-DO: Cost association
@@ -68,7 +67,7 @@ public class GoogleMapScene extends FXMLController implements Initializable {
         }
     }
     public void addTripButton(ActionEvent event) {
-        Bed2BedApp.TryGoTo(selectDestinationScene.class);
+        Bed2BedApp.TryGoTo(LoginScene.class);
     }
     public void saveButton(ActionEvent event) {
     }
