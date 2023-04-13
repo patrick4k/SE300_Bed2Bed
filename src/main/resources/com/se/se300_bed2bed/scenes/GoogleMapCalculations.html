@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<p id = "output" ></p>
+<script src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBjwa3cDQZbkgCDP5K5MveLJ85m8IZfGPM&libraries=places"></script>    
+    
+    <script>
+        'use strict'
+
+        let to,
+        from,
+        mode = [],
+        request;
+
+        const directionsService = new google.maps.DirectionsService();
+
+        function calcRoute(mode) {
+/*
+            const drive = google.maps.TravelMode.DRIVING;
+            mode[0] = drive;
+
+            const walk = google.maps.TravelMode.WALKING;
+            mode[1] = walk;
+
+            const bike = google.maps.TravelMode.BICYCLING;
+            mode[2] = bike;
+
+            const transit = google.maps.TravelMode.TRANSIT;
+            mode[3] = transit;
+*/
+            switch (mode) {
+
+                case 0:
+
+                request = {
+                origin: from,
+                destination: to,
+                travelMode: google.maps.TravelMode.DRIVING,
+                unitSystem: google.maps.UnitSystem.IMPERIAL
+                }
+                break;
+
+                case 1:
+
+                request = {
+                origin: from,
+                destination: to,
+                travelMode: google.maps.TravelMode.WALKING,
+                unitSystem: google.maps.UnitSystem.IMPERIAL
+                }
+                break;
+
+                case 2:
+
+                request = {
+                origin: from,
+                destination: to,
+                travelMode: google.maps.TravelMode.BICYCLING,
+                unitSystem: google.maps.UnitSystem.IMPERIAL
+                }
+                break;
+
+                case 3:
+
+                request = {
+                origin: from,
+                destination: to,
+                travelMode: google.maps.TravelMode.TRANSIT,
+                unitSystem: google.maps.UnitSystem.IMPERIAL
+                }
+                break;
+            }
+
+            directionsService.route(request,
+            
+            (result, status) => {
+                document.getElementById("output").innerHTML = JSON.stringify ({
+                    to: to,
+                    from: from,
+                    distance: result.routes[0].legs[0].distance.text,
+                    duration: result.routes[0].legs[0].duration.text
+                });
+            })
+    
+        }
+       // calcRoute(2);
+    
+    </script>
+</body>
+</html>

@@ -44,7 +44,7 @@ public class LoginScene extends FXMLController implements Initializable {
     //IN PLACE FOR START DESTINATION SCENE
     @FXML
     protected void goToMapScene() {
-        Bed2BedApp.TryGoTo(GoogleMapScene.class);
+        Bed2BedApp.TryGoTo(ReadFromHTML.class);
     }
 
     public void image() {

@@ -1,6 +1,6 @@
 package com.se.se300_bed2bed;
 
-import com.se.se300_bed2bed.data.GetCoordinates;
+import com.se.se300_bed2bed.scenes.ReadFromHTML;
 import com.se.se300_bed2bed.scenes.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -43,7 +43,8 @@ public class Bed2BedApp extends Application {
                 MapScene.class,
                 LoginScene.class,
                 CreateAccountScene.class,
-                GoogleMapScene.class
+                GoogleMapScene.class,
+                ReadFromHTML.class
         );
 
         for (Class<? extends FXMLController> fxmlClass: fxmlClasses) {
