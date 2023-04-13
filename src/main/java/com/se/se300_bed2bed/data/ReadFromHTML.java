@@ -13,9 +13,11 @@ public class ReadFromHTML extends FXMLController {
 
     @Override
     protected String fxmlName() {
+        // CHANGE TO BURTE SCENE NAME
         return "selectDestinationScene.fxml";
     }
 
+    // CHAGNE TO BURTE SCENE ID NAMEs ***
     @FXML
     TextField originText;
     @FXML
@@ -29,6 +31,7 @@ public class ReadFromHTML extends FXMLController {
 
         WebEngine engine = new WebEngine();
 
+        // CHANGE TO BURTE SCENE TEXTIDs ***
         startLocation = originText.getText();
         endLocation = destinationText.getText();
 
@@ -37,10 +40,8 @@ public class ReadFromHTML extends FXMLController {
         assert url!= null;
         engine.load(url.toString());
 
-        //System.out.println(document.getElementById("output").getContent());
+        //System.out.println(Document.getElementById("output").getContent());
 
         engine.executeScript("from" + startLocation + "to" + endLocation + "calcRoute();");
     }
-
-
 }
