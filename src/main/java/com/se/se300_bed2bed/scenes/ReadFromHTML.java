@@ -23,30 +23,34 @@ public class ReadFromHTML extends FXMLController {
     @FXML
     TextField destinationText;
 
+    WebEngine engine = new WebEngine();
+
     public void searchButton (ActionEvent event) {
         GoogleMapsCalculations( );
     }
 
-
+    @Override
+    protected void onload() {
+        URL url = this.getClass().getResource("GoogleMapCalculations.html");
+        assert url!= null;
+        engine.load(url.toString());
+    }
 
     public void GoogleMapsCalculations ( ) {
-
-        WebEngine engine = new WebEngine();
 
         // CHANGE TO BURTE SCENE TEXTIDs ***
         String startLocation = originText.getText();
         String endLocation = destinationText.getText();
 
-
-        URL url = this.getClass().getResource("GoogleMapCalculations.html");
-        assert url!= null;
-        engine.load(url.toString());
-
         //System.out.println(document.getElementById("output").getContent());
 
-        engine.executeScript("from='" + startLocation + "';to='" + endLocation + "';calcRoute(0);");
-        engine.executeScript("from='" + startLocation + "';to='" + endLocation + "';calcRoute(1);");
-        engine.executeScript("from='" + startLocation + "';to='" + endLocation + "';calcRoute(2);");
-        engine.executeScript("from='" + startLocation + "';to='" + endLocation + "';calcRoute(3);");
+        System.out.println("from=\"" + startLocation + "\";to=\"" + endLocation + "\";calcRoute(0);");
+
+        engine.executeScript("from=\"" + startLocation + "\";");
+        engine.executeScript("to=\"" + endLocation + "\";");
+        engine.executeScript("calcRoute(0);");
+//        engine.executeScript("from='" + startLocation + "';to='" + endLocation + "';calcRoute(1);");
+//        engine.executeScript("from='" + startLocation + "';to='" + endLocation + "';calcRoute(2);");
+//        engine.executeScript("from='" + startLocation + "';to='" + endLocation + "';calcRoute(3);");
     }
 }

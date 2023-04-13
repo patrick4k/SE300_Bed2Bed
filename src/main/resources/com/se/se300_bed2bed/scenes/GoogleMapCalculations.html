@@ -35,6 +35,10 @@
 */
             switch (mode) {
 
+                case -1: {
+                    return;
+                }
+
                 case 0:
 
                 request = {
@@ -85,10 +89,10 @@
                     distance: result.routes[0].legs[0].distance.text,
                     duration: result.routes[0].legs[0].duration.text
                 });
-            })
+            });
     
         }
-       // calcRoute(2);
+       calcRoute(-1);
     
     </script>
 </body>
