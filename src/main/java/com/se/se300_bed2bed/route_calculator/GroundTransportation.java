@@ -10,7 +10,7 @@ public class GroundTransportation {
 
 /* Attributes ------------------------------------------------------------------------------------------------------- */
     private String startLocation, endLocation;
-    private RouteComputeEvent onCompute;
+    private RouteComputeEvent onCompute = (routes) -> {};
     private String[] routes = new String[4];
 
 

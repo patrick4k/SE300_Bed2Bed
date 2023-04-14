@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Bed2BedApp extends Application {
-    public static Manager manager;
+    public static Manager manager = new Manager();
     private static Stage stage;
     private static final Map<Class<? extends FXMLController>, Scene> SceneMap = new HashMap<>();
     private static final Map<Class<? extends FXMLController>, FXMLController> ControllerMap = new HashMap<>();
@@ -24,8 +24,10 @@ public class Bed2BedApp extends Application {
         if (SceneMap.containsKey(sceneClass)) {
             Scene scene = SceneMap.get(sceneClass);
             stage.setScene(scene);
-            if (ControllerMap.containsKey(sceneClass))
-                ControllerMap.get(sceneClass).onGoTO();
+            if (ControllerMap.containsKey(sceneClass)) {
+                ControllerMap.get(sceneClass).onGoTo();
+                ControllerMap.get(sceneClass).onGoTo(scene);
+            }
         }
         else {
             throw new RuntimeException(sceneClass.getName() + " DOES NOT EXIST\n" +
