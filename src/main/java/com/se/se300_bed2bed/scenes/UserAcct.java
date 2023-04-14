@@ -5,4 +5,5 @@ public class UserAcct {
     public String lastName;
     public String username;
     public String password;
+    public String saved_data;
 }

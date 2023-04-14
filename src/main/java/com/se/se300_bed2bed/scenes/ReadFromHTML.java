@@ -27,7 +27,7 @@ public class ReadFromHTML extends FXMLController {
     WebEngine engine = new WebEngine();
 
     public void searchButton (ActionEvent event) {
-        GoogleMapsCalculations( );
+        GoogleMapsCalculations();
     }
 
     public void GoogleMapsCalculations() {
@@ -49,10 +49,10 @@ public class ReadFromHTML extends FXMLController {
 
             engine.executeScript("to = \"" + startLocation + "\";"
                     +   "from = \"" + endLocation + "\";"
-                    +   "calcRoute(0);"
-                    +   "calcRoute(1);"
-                    +   "calcRoute(2);"
-                    +   "calcRoute(3);");
+                    +   "calcRoute(0);" // Drive
+                    +   "calcRoute(1);" // Walk
+                    +   "calcRoute(2);" // Bike
+                    +   "calcRoute(3);"); // Transit
         });
 
     }

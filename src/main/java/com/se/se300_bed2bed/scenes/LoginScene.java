@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import java.io.File;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
@@ -31,8 +32,12 @@ public class LoginScene extends FXMLController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        File planeFile = new File("java/com/se/se300_bed2bed/scenes/plane.jpg.jpg");
-        Image planeImage = new Image(planeFile.toURI().toString());
+        Image planeImage = null;
+        try {
+            planeImage = new Image(this.getClass().getResource("plane.jpg").toURI().toString());
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
         plane.setImage(planeImage);
     }
 
@@ -57,7 +62,7 @@ public class LoginScene extends FXMLController implements Initializable {
 
         user = validateLogin(userName, passWord);
         if (user != null) {
-
+            goToMapScene();
         } else {
             loginMessage.setText("Invalid Login. Please Try Again.");
         }if(username.getText().isBlank() == true || password.getText().isBlank() == true){
@@ -91,8 +96,7 @@ public class LoginScene extends FXMLController implements Initializable {
                 user.lastName = resultSet.getString("lastName");
                 user.username = resultSet.getString("username");
                 user.password = resultSet.getString("password");
-
-                goToMapScene();
+                user.saved_data = resultSet.getString("saved_data");
             }
             stmt.close();
             conn.close();

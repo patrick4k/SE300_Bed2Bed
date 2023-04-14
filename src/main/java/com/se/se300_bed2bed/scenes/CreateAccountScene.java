@@ -59,6 +59,7 @@ public class CreateAccountScene extends FXMLController{
 
         if(!password.equals(confirmPassword)) {
             createAcct.setText("Passwords do not Match.");
+            return;
         }
 
        user = addUserToDatabase(firstName, lastName, username, password);
