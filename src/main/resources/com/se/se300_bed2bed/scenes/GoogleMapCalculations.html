@@ -7,38 +7,22 @@
 </head>
 <body>
 <p id = "output" ></p>
-<button id = "eventHolder"></button>
-<script src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBjwa3cDQZbkgCDP5K5MveLJ85m8IZfGPM&libraries=places"></script>    
-    
-    <script>
+<button id="eventHolder"></button>
+<script src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBjwa3cDQZbkgCDP5K5MveLJ85m8IZfGPM&libraries=places"></script>
+
+<script>
         'use strict'
 
-        let to,
-        from,
+        let to = "Daytona Beach FL",
+        from = "Miami",
         mode = [],
         request;
 
         const directionsService = new google.maps.DirectionsService();
 
         function calcRoute(mode) {
-/*
-            const drive = google.maps.TravelMode.DRIVING;
-            mode[0] = drive;
 
-            const walk = google.maps.TravelMode.WALKING;
-            mode[1] = walk;
-
-            const bike = google.maps.TravelMode.BICYCLING;
-            mode[2] = bike;
-
-            const transit = google.maps.TravelMode.TRANSIT;
-            mode[3] = transit;
-*/
             switch (mode) {
-
-                case -1: {
-                    return;
-                }
 
                 case 0:
 
@@ -81,20 +65,62 @@
                 break;
             }
 
-            directionsService.route(request,
-            
-            (result, status) => {
+            directionsService.route(request, function (result, status){
+            if (status == google.maps.DirectionsStatus.OK)
+            {
+
+                // get distance and time
+                const output = document.querySelector('#output');
+
+                // create variables for distance and duration via google maps
+                const distance = parseFloat(result.routes[0].legs[0].distance.text);
+                const duration = result.routes[0].legs[0].duration.text;
+
+                ////////////////////////////////////////////////////////////////////
+                // Cost Calulators: Driving and RideShare
+
+                // calculate cost for rideshare
+                var rideShareCost = "$" + ((((distance)*1.5)*0.509)+distance).toFixed(2);
+                if(distance > 200) {
+                    rideShareCost = "";
+                }
+
+                // calculate cost for drive
+                var driveCost = ((distance*0.0655)).toFixed(2);
+                if(distance > 50) {
+                  driveCost = ((distance*.5)).toFixed(2);
+                }
+                ////////////////////////////////////////////////////////////////////
+
                 document.getElementById("output").innerHTML = JSON.stringify ({
                     to: to,
                     from: from,
-                    distance: result.routes[0].legs[0].distance.text,
-                    duration: result.routes[0].legs[0].duration.text
+                    distance: distance,
+                    duration: duration,
+                    rideShareCost: rideShareCost,
+                    driveCost: "$" + driveCost
                 });
-                document.getElementById("eventHolder").click();
+
+                // do not show rideshare or drivecost for mode(1-3)
+                if (mode == 1 || mode == 2 || mode == 3) {
+                    document.getElementById("output").innerHTML = JSON.stringify ({
+                    to: to,
+                    from: from,
+                    distance: distance,
+                    duration: duration,
+                });
+                }
+                // display route
+                // directionsDisplay.setDirections(result);
+
+            }//end if statement
+
             });
-        }
-       calcRoute(-1);
-    
+
+            document.getElementById("eventHolder").click();
+
+        }// end function
+
     </script>
 </body>
 </html>
