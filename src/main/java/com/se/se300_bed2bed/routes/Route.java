@@ -53,4 +53,10 @@ public class Route {
         return route;
     }
 
+    public static Route fromAirTransport(String return_route) {
+        // TODO: Convert AirTransport result to Route
+        Route route = new Route();
+        return route;
+    }
+
 }
