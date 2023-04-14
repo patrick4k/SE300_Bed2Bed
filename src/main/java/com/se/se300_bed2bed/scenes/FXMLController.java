@@ -21,4 +21,5 @@ public abstract class FXMLController {
     }
 
     protected void onload() { }
+    public void onGoTO() { }
 }

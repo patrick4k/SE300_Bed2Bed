@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.se.se300_bed2bed.scenes.CalculatingScene">
+   <children>
+      <ProgressBar fx:id="progressBar" layoutX="16.0" layoutY="368.0" prefHeight="18.0" prefWidth="569.0" progress="0.0" />
+      <Label layoutX="74.0" layoutY="176.0" text="Finding the best travel options!" textFill="#304bd3">
+         <font>
+            <Font size="33.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

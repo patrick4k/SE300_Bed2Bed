@@ -82,9 +82,9 @@
             }
 
             directionsService.route(request,
-            
             (result, status) => {
                 document.getElementById("output").innerHTML = JSON.stringify ({
+                    mode: mode,
                     to: to,
                     from: from,
                     distance: result.routes[0].legs[0].distance.text,

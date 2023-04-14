@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.se.se300_bed2bed.scenes.ChooseStartEndLocations">
+   <children>
+      <Label layoutX="50.0" layoutY="48.0" text="Enter Your Trip Information  " textFill="#2592f2">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="50.0" layoutY="107.0" text="Leaving from : ">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label layoutX="50.0" layoutY="155.0" text="Going to :">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label layoutX="50.0" layoutY="200.0" text="Saved Trips">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="originText" layoutX="150.0" layoutY="107.0" />
+      <TextField fx:id="destinationText" layoutX="150.0" layoutY="151.0" />
+      <Button layoutX="50.0" layoutY="260.0" mnemonicParsing="false" onAction="#searchButton" style="-fx-background-color: #2592f2;" text="Continue" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <ChoiceBox layoutX="150.0" layoutY="195.0" prefWidth="150.0" />
+      <DatePicker fx:id="calendar" layoutX="390.0" layoutY="107.0" />
+      <Label layoutX="320.0" layoutY="107.0" text="Departing :">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="errorLabel" layoutX="142.0" layoutY="265.0" prefHeight="20.0" prefWidth="190.0" textFill="RED">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

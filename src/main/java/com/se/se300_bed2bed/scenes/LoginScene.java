@@ -9,7 +9,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import java.io.File;
+
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.*;
@@ -49,7 +49,7 @@ public class LoginScene extends FXMLController implements Initializable {
     //IN PLACE FOR START DESTINATION SCENE
     @FXML
     protected void goToMapScene() {
-        Bed2BedApp.TryGoTo(ReadFromHTML.class);
+        Bed2BedApp.TryGoTo(ChooseStartEndLocations.class);
     }
 
     public void image() {

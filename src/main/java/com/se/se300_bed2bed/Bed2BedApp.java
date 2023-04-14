@@ -1,6 +1,7 @@
 package com.se.se300_bed2bed;
 
-import com.se.se300_bed2bed.scenes.ReadFromHTML;
+import com.se.se300_bed2bed.routes.Manager;
+import com.se.se300_bed2bed.scenes.ChooseStartEndLocations;
 import com.se.se300_bed2bed.scenes.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -14,13 +15,17 @@ import java.util.List;
 import java.util.Map;
 
 public class Bed2BedApp extends Application {
+    public static Manager manager;
     private static Stage stage;
     private static final Map<Class<? extends FXMLController>, Scene> SceneMap = new HashMap<>();
+    private static final Map<Class<? extends FXMLController>, FXMLController> ControllerMap = new HashMap<>();
 
     public static void TryGoTo(Class<? extends FXMLController> sceneClass) {
         if (SceneMap.containsKey(sceneClass)) {
             Scene scene = SceneMap.get(sceneClass);
             stage.setScene(scene);
+            if (ControllerMap.containsKey(sceneClass))
+                ControllerMap.get(sceneClass).onGoTO();
         }
         else {
             throw new RuntimeException(sceneClass.getName() + " DOES NOT EXIST\n" +
@@ -44,7 +49,9 @@ public class Bed2BedApp extends Application {
                 LoginScene.class,
                 CreateAccountScene.class,
                 GoogleMapScene.class,
-                ReadFromHTML.class
+                ChooseStartEndLocations.class,
+                CalculatingScene.class,
+                ShowResultsScene.class
         );
 
         for (Class<? extends FXMLController> fxmlClass: fxmlClasses) {
@@ -57,6 +64,7 @@ public class Bed2BedApp extends Application {
             FXMLController controller = className.getConstructor().newInstance();
             Pair<Class<? extends FXMLController>, Scene> scenePair = controller.GET();
             SceneMap.put(scenePair.getKey(), scenePair.getValue());
+            ControllerMap.put(scenePair.getKey(), controller);
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException |
                  IOException e) {
             throw new RuntimeException(e);
