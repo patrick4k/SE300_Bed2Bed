@@ -52,7 +52,8 @@ public class ReadFromHTML extends FXMLController {
                     +   "calcRoute(0);"
                     +   "calcRoute(1);"
                     +   "calcRoute(2);"
-                    +   "calcRoute(3);");
+                    +   "calcRoute(3);"
+                    +   "calcRoute(4);");
         });
 
     }
