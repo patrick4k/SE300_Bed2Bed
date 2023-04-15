@@ -1,10 +1,13 @@
 package com.se.se300_bed2bed.route_calculator;
 
+import com.amadeus.Amadeus;
+import com.amadeus.Params;
+import com.amadeus.exceptions.ResponseException;
+import com.amadeus.referencedata.Locations;
+import com.amadeus.resources.FlightOfferSearch;
+import com.amadeus.resources.Location;
+import com.se.se300_bed2bed.Bed2BedApp;
 import com.se.se300_bed2bed.util.RouteComputeEvent;
-import javafx.scene.web.WebEngine;
-import org.w3c.dom.events.EventTarget;
-
-import java.net.URL;
 
 public class AirTransportation {
 /* Attributes ------------------------------------------------------------------------------------------------------- */
@@ -24,6 +27,39 @@ public class AirTransportation {
 /* Methods -----------------------------------------------------------------------------------------------------------*/
 
     public void calculateRoutes() {
+
+        Amadeus amadeus = Amadeus
+                .builder("1UxlAtMdXQTRKKdE02dyjfjoe79PhFF6", "vX4vggAsdGX2866e")
+                .build();
+
+        //Object Locations = null;
+        Location[] locations = new Location[0];
+        try {
+            locations = amadeus.referenceData.locations.get(Params
+                    .with("keyword", "MCO")
+                    .and("subType", Locations.ANY));
+            locations[0].getResponse().getBody();
+        } catch (Exception ignore) {}
+
+
+        System.out.println(locations);
+
+        // The options of the flight (Make it into a user input)
+        FlightOfferSearch[] flightOffersSearches = new FlightOfferSearch[0];
+        try {
+            flightOffersSearches = amadeus.shopping.flightOffersSearch.get(
+                    Params.with("originLocationCode", "MCO") // TODO: Get closest airport
+                            .and("destinationLocationCode", "JFK")
+                            .and("departureDate", Bed2BedApp.manager.getTargetDate())
+//                            .and("returnDate", "2023-09-08")
+                            .and("currencyCode", "USD")
+                            .and("adults", 1)
+                            .and("max", 10));
+        } catch (ResponseException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(flightOffersSearches);
+
         // TODO: Calculate air routes
         String[] routes = new String[0];
         this.onCompute.onRouteCalculated(routes);

@@ -26,9 +26,9 @@ public class Manager {
             if (num_finished[0] >= 2)
                 this.goToResults(onFinish);
         };
-        this.groundOnly = new RouteGroundOnly(this.to, this.from);
+        this.groundOnly = new RouteGroundOnly(this.from, this.to);
         this.groundOnly.setOnFinishComputing(this.onFinishCompute);
-        this.airGround = new RouteAirGround(this.to, this.from);
+        this.airGround = new RouteAirGround(this.from, this.to);
         this.airGround.setOnFinishComputing(this.onFinishCompute);
     }
 

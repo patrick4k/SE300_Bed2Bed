@@ -48,10 +48,21 @@ public class CalculatingScene extends FXMLController {
             planeGif.setImage(new Image(Objects.requireNonNull(this.getClass().getResource("plane.gif")).toURI().toString()));
         } catch (URISyntaxException ignore) { }
 
+        // To change scenes before starting computation
+        final boolean[] startedComputing = {false};
+
         // Timeout timeline to show warning once progress bar is full
         Timeline timeout = new Timeline();
         timeout.getKeyFrames().add(new KeyFrame(Duration.seconds(0.025), actionEvent -> {
+
             progressBar.setProgress(1.01*progressBar.getProgress());
+
+            if (!startedComputing[0]) {
+                startedComputing[0] = true;
+                // Trigger to compute, stop timeout on complete
+                Bed2BedApp.manager.compute(timeout::stop);
+            }
+
             if (progressBar.getProgress() >= 1) {
                 errorLabel.setText("This is taking longer than expected...\n\n" +
                         "Check your internet connection\n" +
@@ -61,9 +72,6 @@ public class CalculatingScene extends FXMLController {
         }));
         timeout.setCycleCount(Timeline.INDEFINITE);
         timeout.play();
-
-        // Trigger to compute, stop timeout on complete
-        Bed2BedApp.manager.compute(timeout::stop);
     }
 
     @FXML

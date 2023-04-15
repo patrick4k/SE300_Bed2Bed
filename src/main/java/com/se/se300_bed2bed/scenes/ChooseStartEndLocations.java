@@ -8,6 +8,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.web.WebEngine;
 
+import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
+
 public class ChooseStartEndLocations extends FXMLController {
 
     @Override
@@ -36,6 +39,10 @@ public class ChooseStartEndLocations extends FXMLController {
         }
         if (calendar.getValue() == null || calendar.getValue().toString().isBlank()) {
             errorLabel.setText(errorLabel.getText() + "\nMust select date");
+            hasError = true;
+        }
+        if (calendar.getValue().isBefore(LocalDate.now())) {
+            errorLabel.setText(errorLabel.getText() + "\nCannot select pasted dates");
             hasError = true;
         }
         if (hasError) return;
