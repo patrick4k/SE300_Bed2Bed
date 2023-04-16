@@ -1,22 +1,26 @@
 package com.se.se300_bed2bed.routes;
 
+import com.google.gson.Gson;
 import com.se.se300_bed2bed.Bed2BedApp;
 import com.se.se300_bed2bed.route_calculator.RouteAirGround;
 import com.se.se300_bed2bed.route_calculator.RouteGroundOnly;
 import com.se.se300_bed2bed.scenes.ShowResultsScene;
+import com.se.se300_bed2bed.scenes.UserAcct;
 import com.se.se300_bed2bed.util.Bed2BedEvent;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Manager {
+    private UserAcct user;
     private String to, from;
     private String targetDate;
     private final ArrayList<Route> routes = new ArrayList<>();
 
     RouteGroundOnly groundOnly;
     RouteAirGround airGround;
-
     Bed2BedEvent onFinishCompute;
 
     public void compute(Bed2BedEvent onFinish) {
@@ -73,5 +77,21 @@ public class Manager {
 
     public ArrayList<Route> getRoutes() {
         return routes;
+    }
+
+    public void setUser(UserAcct user) {
+        this.user = user;
+    }
+
+    public UserAcct getUser() {
+        return user;
+    }
+
+    public String toJSON() {
+        Map<String, String> route = new HashMap<>();
+        route.put("to", this.to);
+        route.put("from", this.from);
+        Gson gson = new Gson();
+        return gson.toJson(route);
     }
 }

@@ -96,9 +96,7 @@ public class CreateAccountScene extends FXMLController{
                 user.username = username;
                 user.password = password;
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        } catch (SQLException ignore) {}
         return user;
     }
 }

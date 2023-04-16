@@ -62,6 +62,7 @@ public class LoginScene extends FXMLController implements Initializable {
 
         user = validateLogin(userName, passWord);
         if (user != null) {
+            Bed2BedApp.manager.setUser(user);
             goToMapScene();
         } else {
             loginMessage.setText("Invalid Login. Please Try Again.");
@@ -102,7 +103,7 @@ public class LoginScene extends FXMLController implements Initializable {
             conn.close();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            loginMessage.setText("Validation error, please check internet connection.");
         }
         return user;
     }
