@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<p id = "output" ></p>
+<button id="eventHolder"></button>
+<script src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBjwa3cDQZbkgCDP5K5MveLJ85m8IZfGPM&libraries=places"></script>
+
+<script>
+        'use strict'
+
+        let to,
+        from,
+        mode = [],
+        request;
+
+        const directionsService = new google.maps.DirectionsService();
+
+        function calcRoute(mode) {
+
+            switch (mode) {
+
+                case 0:
+
+                request = {
+                origin: from,
+                destination: to,
+                travelMode: google.maps.TravelMode.DRIVING,
+                unitSystem: google.maps.UnitSystem.IMPERIAL
+                }
+                break;
+
+
+                case 1:
+
+                request = {
+                origin: from,
+                destination: to,
+                travelMode: google.maps.TravelMode.DRIVING,
+                unitSystem: google.maps.UnitSystem.IMPERIAL
+                }
+                break;
+
+                case 2:
+
+                request = {
+                origin: from,
+                destination: to,
+                travelMode: google.maps.TravelMode.WALKING,
+                unitSystem: google.maps.UnitSystem.IMPERIAL
+                }
+                break;
+
+                case 3:
+
+                request = {
+                origin: from,
+                destination: to,
+                travelMode: google.maps.TravelMode.BICYCLING,
+                unitSystem: google.maps.UnitSystem.IMPERIAL
+                }
+                break;
+
+                case 4:
+
+                request = {
+                origin: from,
+                destination: to,
+                travelMode: google.maps.TravelMode.TRANSIT,
+                unitSystem: google.maps.UnitSystem.IMPERIAL
+                }
+                break;
+            }
+
+            directionsService.route(request, function (result, status){
+            if (status == google.maps.DirectionsStatus.OK)
+            {
+
+                // get distance and time
+                const output = document.querySelector('#output');
+
+                // create variables for distance and duration via google maps
+                const distance = parseFloat(result.routes[0].legs[0].distance.text);
+                const duration = result.routes[0].legs[0].duration.text;
+
+                ////////////////////////////////////////////////////////////////////
+                // Cost Calulators: Driving and RideShare
+
+                // calculate cost for rideshare
+                var rideShareCost = "$" + ((((distance)*1.5)*0.509)+distance).toFixed(2);
+                if(distance > 200) {
+                    rideShareCost = "";
+                }
+
+                // calculate cost for drive
+                var driveCost = ((distance*0.0655)).toFixed(2);
+                if(distance > 50) {
+                  driveCost = ((distance*.5)).toFixed(2);
+                }
+                ////////////////////////////////////////////////////////////////////
+
+                document.getElementById("output").innerHTML = JSON.stringify ({
+                    to: to,
+                    from: from,
+                    distance: distance,
+                    duration: duration,
+                    driveCost: "$" + driveCost
+                });
+
+                if (mode == 1){
+                    document.getElementById("output").innerHTML = JSON.stringify ({
+                    to: to,
+                    from: from,
+                    distance: distance,
+                    duration: duration,
+                    rideShareCost: rideShareCost
+                });
+                } // end if statement
+
+                // do not show rideshare or drivecost for mode(2-4)
+                if (mode == 2 || mode == 3 || mode == 4) {
+                    document.getElementById("output").innerHTML = JSON.stringify ({
+                    to: to,
+                    from: from,
+                    distance: distance,
+                    duration: duration,
+                    cost: "$0"
+                });
+                } // end if statement
+
+            }//end long if statement
+
+                document.getElementById("eventHolder").click();
+
+            });
+
+        }// end function
+
+    </script>
+</body>
+</html>
