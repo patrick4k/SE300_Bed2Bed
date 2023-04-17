@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.se.se300_bed2bed.scenes.ChooseStartEndLocations">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.se.se300_bed2bed.scenes.ChooseStartEndLocations">
    <children>
       <Label layoutX="50.0" layoutY="48.0" text="Enter Your Trip Information  " textFill="#2592f2">
          <font>
@@ -31,7 +31,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <ChoiceBox layoutX="150.0" layoutY="195.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="savedTrips" layoutX="150.0" layoutY="195.0" onAction="#chooseSavedTrip" prefWidth="150.0" />
       <DatePicker fx:id="calendar" layoutX="390.0" layoutY="107.0" />
       <Label layoutX="320.0" layoutY="107.0" text="Departing :">
          <font>

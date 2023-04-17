@@ -56,7 +56,9 @@ public class AirTransportation {
                             .and("adults", 1)
                             .and("max", 10));
         } catch (ResponseException e) {
-            throw new RuntimeException(e);
+            System.out.println("No flight routes computed");
+            String[] routes = new String[0];
+            this.onCompute.onRouteCalculated(routes);
         }
         System.out.println(flightOffersSearches);
 

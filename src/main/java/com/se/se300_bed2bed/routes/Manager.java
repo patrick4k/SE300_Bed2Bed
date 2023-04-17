@@ -1,6 +1,5 @@
 package com.se.se300_bed2bed.routes;
 
-import com.google.gson.Gson;
 import com.se.se300_bed2bed.Bed2BedApp;
 import com.se.se300_bed2bed.route_calculator.RouteAirGround;
 import com.se.se300_bed2bed.route_calculator.RouteGroundOnly;
@@ -54,9 +53,9 @@ public class Manager {
         this.routes.clear();
     }
 
-    public void setToFrom(String to, String from) {
-        this.to = to;
+    public void setFromTo(String from, String to) {
         this.from = from;
+        this.to = to;
     }
 
     public void setTargetDate(String targetDate) {
@@ -80,6 +79,7 @@ public class Manager {
     }
 
     public void setUser(UserAcct user) {
+        System.out.println("User data: " + user.saved_data);
         this.user = user;
     }
 
@@ -87,11 +87,10 @@ public class Manager {
         return user;
     }
 
-    public String toJSON() {
+    public Map<String, String> toMap() {
         Map<String, String> route = new HashMap<>();
         route.put("to", this.to);
         route.put("from", this.from);
-        Gson gson = new Gson();
-        return gson.toJson(route);
+        return route;
     }
 }

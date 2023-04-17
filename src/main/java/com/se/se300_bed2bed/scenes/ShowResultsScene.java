@@ -1,12 +1,14 @@
 package com.se.se300_bed2bed.scenes;
 
+import com.google.gson.Gson;
 import com.se.se300_bed2bed.Bed2BedApp;
 import com.se.se300_bed2bed.routes.Route;
 import javafx.fxml.FXML;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class ShowResultsScene extends FXMLController {
     @Override
@@ -16,6 +18,7 @@ public class ShowResultsScene extends FXMLController {
 
     @Override
     public void onGoTo() {
+        // TODO: Results GUI, populate with results
         System.out.println("Displaying Results:");
         for (Route route: Bed2BedApp.manager.getRoutes()) {
             System.out.println("---------------------------------------------------------------------");
@@ -28,28 +31,37 @@ public class ShowResultsScene extends FXMLController {
 
     @FXML
     protected void saveRouteToDB() {
-        String route_json = Bed2BedApp.manager.toJSON();
-        System.out.println(route_json);
-        addUserToDatabase(route_json);
+        Map new_route = Bed2BedApp.manager.toMap();
+        addUserToDatabase(new_route);
     }
 
-    private void addUserToDatabase (String append_routes) {
-        // TODO: Have not tested yet!
+    private void addUserToDatabase(Map new_route) {
+        Gson gson = new Gson();
+
+        ArrayList<Map> routes = new ArrayList<>();
+        routes.add(new_route);
+
+        if (Bed2BedApp.manager.getUser().saved_data != null) {
+            String saved_data = Bed2BedApp.manager.getUser().saved_data;
+            Map[] saved_routes = gson.fromJson(saved_data, Map[].class);
+            routes.addAll(List.of(saved_routes));
+        }
+
+        String new_saved_data = gson.toJson(routes.toArray());
+
         UserAcct user = null;
         final String DB_URL = "jdbc:mysql://sql9.freesqldatabase.com:3306/sql9603412";
         final String USERNAME = "sql9603412";
         final String PASSWORD = "a3Fhikr9v9";
 
         UserAcct currentUser = Bed2BedApp.manager.getUser();
-        String  firstName = currentUser.firstName,
-                lastName  = currentUser.lastName,
-                username  = currentUser.username,
-                password  = currentUser.password;
+        String username = currentUser.username;
+
         try{
             Connection conn = DriverManager.getConnection(DB_URL,USERNAME,PASSWORD);
 
             Statement stmt = conn.createStatement();
-            String sql = "UPDATE useraccount SET saved_data = '" + append_routes + "' " +
+            String sql = "UPDATE useraccount SET saved_data = '" + new_saved_data + "' " +
                     "WHERE username = '" + username + "'";
 
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
@@ -60,6 +72,7 @@ public class ShowResultsScene extends FXMLController {
             }
             else System.out.println("addedRows < 1 :(");
         } catch (SQLException e) {
+            // TODO: Error Handling
             e.printStackTrace();
         }
     }
