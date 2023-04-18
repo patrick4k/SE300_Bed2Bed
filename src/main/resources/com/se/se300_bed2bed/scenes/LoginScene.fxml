@@ -37,7 +37,7 @@
          </children>
       </AnchorPane>
       <Hyperlink layoutX="29.0" layoutY="357.0" onAction="#goToCreateAcct" text="Create Account" />
-      <Button fx:id="continueAsGuestButton" layoutX="27.0" layoutY="312.0" mnemonicParsing="false" onAction="#goToMapScene" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #2592f2;" text="Continue As Guest" textFill="WHITE">
+      <Button fx:id="continueAsGuestButton" layoutX="27.0" layoutY="312.0" mnemonicParsing="false" onAction="#continueAsGuestAction" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #2592f2;" text="Continue As Guest" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

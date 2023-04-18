@@ -36,6 +36,9 @@ public class ShowResultsScene extends FXMLController {
     }
 
     private void addUserToDatabase(Map new_route) {
+        // Abort if guest
+        if (Bed2BedApp.manager.getUser().isGuest) return;
+
         Gson gson = new Gson();
 
         ArrayList<Map> routes = new ArrayList<>();
@@ -57,7 +60,7 @@ public class ShowResultsScene extends FXMLController {
         UserAcct currentUser = Bed2BedApp.manager.getUser();
         String username = currentUser.username;
 
-        try{
+        try {
             Connection conn = DriverManager.getConnection(DB_URL,USERNAME,PASSWORD);
 
             Statement stmt = conn.createStatement();

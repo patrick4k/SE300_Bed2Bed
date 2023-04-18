@@ -52,22 +52,42 @@ public class LoginScene extends FXMLController implements Initializable {
         Bed2BedApp.TryGoTo(ChooseStartEndLocations.class);
     }
 
+    @FXML
+    protected void continueAsGuestAction() {
+        UserAcct guestUser = new UserAcct();
+        guestUser.isGuest = true;
+        guestUser.username = "Guest";
+        guestUser.firstName = "Guest";
+        guestUser.lastName = "";
+        guestUser.password = "GuestPassword";
+        Bed2BedApp.manager.setUser(guestUser);
+        goToMapScene();
+    }
+
     public void image() {
 
     }
 
     public void loginButton(ActionEvent event) {
+
+        // Abort on blank text
+        if(username.getText().isBlank() == true || password.getText().isBlank() == true){
+            loginMessage.setText("Enter a Username and Password.");
+            return;
+        }
+
+        loginMessage.setText("");
         String userName = username.getText();
         String passWord = password.getText();
 
         user = validateLogin(userName, passWord);
+
         if (user != null) {
             Bed2BedApp.manager.setUser(user);
             goToMapScene();
-        } else {
+        }
+        else if (loginMessage.getText().isBlank()) {
             loginMessage.setText("Invalid Login. Please Try Again.");
-        }if(username.getText().isBlank() == true || password.getText().isBlank() == true){
-            loginMessage.setText("Enter a Username and Password.");
         }
 
     }

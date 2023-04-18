@@ -6,4 +6,5 @@ public class UserAcct {
     public String username;
     public String password;
     public String saved_data;
+    public boolean isGuest = false;
 }
