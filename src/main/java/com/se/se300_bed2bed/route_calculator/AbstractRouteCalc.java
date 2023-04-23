@@ -1,5 +1,6 @@
 package com.se.se300_bed2bed.route_calculator;
 
+import com.se.se300_bed2bed.routes.GroundRoute;
 import com.se.se300_bed2bed.routes.Route;
 import com.se.se300_bed2bed.util.Bed2BedEvent;
 
@@ -18,6 +19,8 @@ public abstract class AbstractRouteCalc {
         if (this.finishedComputing) event.fire();
         else this.onFinishComputing = event;
     }
+
+    abstract protected void processRoutes(String[] routes);
 
     public String getStartingLocation() {
         return startingLocation;

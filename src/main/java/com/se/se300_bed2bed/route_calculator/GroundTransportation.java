@@ -66,7 +66,8 @@ public class GroundTransportation {
                     +   "calcRoute(0);" // Drive
                     +   "calcRoute(1);" // Walk
                     +   "calcRoute(2);" // Bike
-                    +   "calcRoute(3);"); // Transit
+                    +   "calcRoute(3);" // Transit
+            );
         });
 
     }

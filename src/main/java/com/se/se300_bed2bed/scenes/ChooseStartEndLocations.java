@@ -25,9 +25,9 @@ public class ChooseStartEndLocations extends FXMLController {
     }
 
     @FXML
-    TextField originText;
+    TextField originText, originCityCountry;
     @FXML
-    TextField destinationText;
+    TextField destinationText, destinationCityCountry;
     @FXML
     DatePicker calendar;
     @FXML
@@ -39,7 +39,7 @@ public class ChooseStartEndLocations extends FXMLController {
 
     @Override
     public void onGoTo(Scene scene) {
-        savedTrips = (ChoiceBox<String>) scene.getRoot().getChildrenUnmodifiable().get(7);
+        savedTrips = (ChoiceBox<String>) scene.getRoot().getChildrenUnmodifiable().get(6);
         Gson gson = new Gson();
 
         // Abort on null saved data
@@ -80,9 +80,15 @@ public class ChooseStartEndLocations extends FXMLController {
             errorLabel.setText(errorLabel.getText() + "\nCannot select pasted dates");
             hasError = true;
         }
+        if ((originCityCountry.getText().length() > 15) || (destinationCityCountry.getText().length() > 15)) {
+            errorLabel.setText(errorLabel.getText() + "\nCity + Country input must be less than 15 characters");
+            hasError = true;
+        }
         if (hasError) return;
 
         Bed2BedApp.manager.setFromTo(originText.getText(), destinationText.getText());
+        if (!(originCityCountry.getText().isBlank() || destinationText.getText().isBlank()))
+            Bed2BedApp.manager.setFromToCityCountry(originCityCountry.getText(), destinationCityCountry.getText());
         Bed2BedApp.manager.setTargetDate(calendar.getValue().toString());
         Bed2BedApp.TryGoTo(CalculatingScene.class);
     }

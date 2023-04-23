@@ -62,7 +62,7 @@ public class CreateAccountScene extends FXMLController{
             return;
         }
 
-       user = addUserToDatabase(firstName, lastName, username, password);
+       user = addUserToDatabase(firstName, lastName, username, password, "");
         if(user != null) {
             createAcct.setText("Success! Return to Login.");
         }else {
@@ -70,23 +70,24 @@ public class CreateAccountScene extends FXMLController{
         }
     }
     public UserAcct user;
-    private UserAcct addUserToDatabase (String firstName, String lastName, String username, String password) {
+    private UserAcct addUserToDatabase (String firstName, String lastName, String username, String password, String saved_data) {
         UserAcct user = null;
-        final String DB_URL = "jdbc:mysql://sql9.freesqldatabase.com:3306/sql9603412";
-        final String USERNAME = "sql9603412";
-        final String PASSWORD = "a3Fhikr9v9";
+        final String DB_URL = "jdbc:mysql://localhost:3306/amitdb";
+        final String USERNAME = "root";
+        final String PASSWORD = "Tomorrow227!";
 
         try{
             Connection conn = DriverManager.getConnection(DB_URL,USERNAME,PASSWORD);
 
             Statement stmt = conn.createStatement();
-            String sql = "INSERT INTO useraccount (firstName, lastName, username, password)" + "VALUES (?,?,?,?)";
+            String sql = "INSERT INTO useraccount (firstName, lastName, username, password)" + "VALUES (?,?,?,?,?)";
 
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1,firstName);
             preparedStatement.setString(2,lastName);
             preparedStatement.setString(3,username);
             preparedStatement.setString(4,password);
+            preparedStatement.setString(5,saved_data);
 
             int addedRows = preparedStatement.executeUpdate();
             if (addedRows > 0) {
@@ -95,6 +96,7 @@ public class CreateAccountScene extends FXMLController{
                 user.lastName = lastName;
                 user.username = username;
                 user.password = password;
+                user.saved_data = saved_data;
             }
         } catch (SQLException ignore) {}
         return user;

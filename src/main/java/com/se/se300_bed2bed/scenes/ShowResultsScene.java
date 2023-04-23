@@ -2,6 +2,8 @@ package com.se.se300_bed2bed.scenes;
 
 import com.google.gson.Gson;
 import com.se.se300_bed2bed.Bed2BedApp;
+import com.se.se300_bed2bed.routes.AirRoute;
+import com.se.se300_bed2bed.routes.GroundRoute;
 import com.se.se300_bed2bed.routes.Route;
 import javafx.fxml.FXML;
 
@@ -21,11 +23,22 @@ public class ShowResultsScene extends FXMLController {
         // TODO: Results GUI, populate with results
         System.out.println("Displaying Results:");
         for (Route route: Bed2BedApp.manager.getRoutes()) {
-            System.out.println("---------------------------------------------------------------------");
-            System.out.println(route.getTravelType());
-            System.out.println(route.getFrom() + " -> " + route.getTo());
-            System.out.println(route.getDistance());
-            System.out.println(route.getDuration());
+            GroundRoute ground;
+            AirRoute air;
+
+            if (route instanceof GroundRoute) {
+                ground = (GroundRoute) route;
+                System.out.println("---------------------------------------------------------------------");
+                System.out.println(ground.getTravelType());
+                System.out.println(ground.getFrom() + " -> " + ground.getTo());
+                System.out.println(ground.getDistance());
+                System.out.println(ground.getDuration());
+            }
+            else if (route instanceof AirRoute) {
+                air = (AirRoute) route;
+
+            }
+
         }
     }
 
@@ -53,9 +66,9 @@ public class ShowResultsScene extends FXMLController {
         String new_saved_data = gson.toJson(routes.toArray());
 
         UserAcct user = null;
-        final String DB_URL = "jdbc:mysql://sql9.freesqldatabase.com:3306/sql9603412";
-        final String USERNAME = "sql9603412";
-        final String PASSWORD = "a3Fhikr9v9";
+        final String DB_URL = "jdbc:mysql://localhost:3306/amitdb";
+        final String USERNAME = "root";
+        final String PASSWORD = "Tomorrow227!";
 
         UserAcct currentUser = Bed2BedApp.manager.getUser();
         String username = currentUser.username;

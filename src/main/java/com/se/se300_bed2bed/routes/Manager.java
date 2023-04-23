@@ -15,6 +15,7 @@ import java.util.Map;
 public class Manager {
     private UserAcct user;
     private String to, from;
+    private String toCityCountry, fromCityCountry;
     private String targetDate;
     private final ArrayList<Route> routes = new ArrayList<>();
 
@@ -58,6 +59,13 @@ public class Manager {
         this.to = to;
     }
 
+    public void setFromToCityCountry(String from, String to) {
+        this.from += " " + from;
+        this.to += " " + to;
+        this.fromCityCountry = from;
+        this.toCityCountry = to;
+    }
+
     public void setTargetDate(String targetDate) {
         this.targetDate = targetDate;
     }
@@ -68,6 +76,14 @@ public class Manager {
 
     public String getFrom() {
         return from;
+    }
+
+    public String getToCityCountry() {
+        return toCityCountry;
+    }
+
+    public String getFromCityCountry() {
+        return fromCityCountry;
     }
 
     public String getTargetDate() {

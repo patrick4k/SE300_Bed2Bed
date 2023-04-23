@@ -16,6 +16,7 @@ import java.util.Map;
 
 public class Bed2BedApp extends Application {
     public static Manager manager = new Manager();
+    public static String mySQL_URL = "", mySQL_Username = "", mySQL_Password = "";
     private static Stage stage;
     private static final Map<Class<? extends FXMLController>, Scene> SceneMap = new HashMap<>();
     private static final Map<Class<? extends FXMLController>, FXMLController> ControllerMap = new HashMap<>();

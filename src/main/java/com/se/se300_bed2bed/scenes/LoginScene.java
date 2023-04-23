@@ -97,9 +97,9 @@ public class LoginScene extends FXMLController implements Initializable {
     private UserAcct validateLogin(String userName, String passWord) {
         UserAcct user = null;
 
-        final String DB_URL = "jdbc:mysql://sql9.freesqldatabase.com:3306/sql9603412";
-        final String USERNAME = "sql9603412";
-        final String PASSWORD = "a3Fhikr9v9";
+        final String DB_URL = "jdbc:mysql://localhost:3306/amitdb";
+        final String USERNAME = "root";
+        final String PASSWORD = "Tomorrow227!";
 
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);

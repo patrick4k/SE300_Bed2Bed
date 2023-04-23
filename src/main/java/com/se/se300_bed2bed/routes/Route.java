@@ -1,39 +1,19 @@
 package com.se.se300_bed2bed.routes;
 
+import com.google.gson.Gson;
+
 import java.util.Map;
 
-public class Route {
-    protected String travelType;
-    protected String from, to;
-    protected String distance, duration;
+public interface Route {
 
-    public String getTravelType() {
-        return travelType;
-    }
+    static GroundRoute fromGroundOutput(Map mapped_route) {
 
-    public String getFrom() {
-        return from;
-    }
-
-    public String getTo() {
-        return to;
-    }
-
-    public String getDistance() {
-        return distance;
-    }
-
-    public String getDuration() {
-        return duration;
-    }
-
-    public static Route fromGroundOutput(Map mapped_route) {
-
-        Route route = new Route();
+        GroundRoute route = new GroundRoute();
         route.distance = ((String) mapped_route.get("distance"));
         route.duration = ((String) mapped_route.get("duration"));
         route.to = ((String) mapped_route.get("to"));
         route.from = ((String) mapped_route.get("from"));
+        route.cost = "$0"; // TODO Get cost of route
 
         String travelType = "";
         Double mode = (Double) mapped_route.get("mode");
@@ -53,9 +33,26 @@ public class Route {
         return route;
     }
 
-    public static Route fromAirTransport(String return_route) {
-        // TODO: Convert AirTransport result to Route
-        Route route = new Route();
+    static AirRoute fromAirTransport(Map mapped_route) {
+        Gson gson = new Gson();
+        AirRoute route = new AirRoute();
+        route.duration = ((String) mapped_route.get("duration"));
+        route.to = ((String) mapped_route.get("to"));
+        route.from = ((String) mapped_route.get("from"));
+        route.cost = ((String) mapped_route.get("cost"));
+
+        route.fromAirport = Route.fromGroundOutput(
+                gson.fromJson(
+                        (String) mapped_route.get("fromAirport"), Map.class
+                )
+        );
+
+        route.toAirport = Route.fromGroundOutput(
+                gson.fromJson(
+                        (String) mapped_route.get("toAirport"), Map.class
+                )
+        );
+
         return route;
     }
 
