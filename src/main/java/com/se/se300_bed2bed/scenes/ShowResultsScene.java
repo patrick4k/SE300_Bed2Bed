@@ -92,4 +92,8 @@ public class ShowResultsScene extends FXMLController {
             e.printStackTrace();
         }
     }
+
+    public void costCalculator() {
+
+    }
 }
