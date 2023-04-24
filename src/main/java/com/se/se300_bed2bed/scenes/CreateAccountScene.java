@@ -62,7 +62,7 @@ public class CreateAccountScene extends FXMLController{
             return;
         }
 
-       user = addUserToDatabase(firstName, lastName, username, password, "");
+       user = addUserToDatabase(firstName, lastName, username, password, "N/A");
         if(user != null) {
             createAcct.setText("Success! Return to Login.");
         }else {

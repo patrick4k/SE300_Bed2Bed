@@ -28,6 +28,7 @@
   <component name="DBNavigator.Project.DatasetFilterManager">
     <filter-actions connection-id="adeb1dc8-94fb-44ab-86e6-df29734151b7" dataset="sql9603412.useraccount" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="5d936bb6-83f2-47f1-8733-50e983ae6ce2" dataset="amitdb.useraccount" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="8ebe8b0f-28b5-45e5-a9a2-99dec0e42b06" dataset="amitdb.useraccount" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />

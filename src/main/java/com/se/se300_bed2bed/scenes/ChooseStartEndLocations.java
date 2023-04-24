@@ -45,10 +45,15 @@ public class ChooseStartEndLocations extends FXMLController {
         // Abort on null saved data
         if (Bed2BedApp.manager.getUser().saved_data == null) return;
 
+        /*
         Map[] saved_data = gson.fromJson(Bed2BedApp.manager.getUser().saved_data, Map[].class);
         for (Map route: saved_data) {
             savedTrips.getItems().add(route.get("from") + " -> " + route.get("to"));
+            if (saved_data == null) {
+                return;
+            }
         }
+         */
 
     }
 
