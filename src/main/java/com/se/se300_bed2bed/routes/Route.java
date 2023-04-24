@@ -8,6 +8,9 @@ import java.util.regex.Pattern;
 
 public interface Route {
 
+    double getTotalPrice();
+    double getTotalDuration();
+
     static GroundRoute fromGroundOutput(Map mapped_route) {
 
         GroundRoute route = new GroundRoute();
@@ -58,7 +61,7 @@ public interface Route {
         if (matcher.matches()) {
             int hours = Integer.parseInt(matcher.group(1));
             int minutes = Integer.parseInt(matcher.group(2));
-            return String.format("%d hr %d mins", hours, minutes);
+            return String.format("%d hr %d min", hours, minutes);
         }
 
         return "";

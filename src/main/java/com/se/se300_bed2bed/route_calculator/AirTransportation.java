@@ -89,7 +89,7 @@ public class AirTransportation {
                             .and("departureDate", Bed2BedApp.manager.getTargetDate())
                             .and("currencyCode", "USD")
                             .and("adults", 1)
-                            .and("max", 10);
+                            .and("max", 5);
                     flightOffersSearches = amadeus.shopping.flightOffersSearch.get(parameters);
 
                 } catch (ResponseException ignore) {}
