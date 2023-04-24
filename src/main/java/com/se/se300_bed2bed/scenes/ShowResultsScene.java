@@ -83,7 +83,7 @@ public class ShowResultsScene extends FXMLController implements Initializable{
 
     private TreeItem<String> getTreeItem(GroundRoute route, boolean includeFromTo) {
         TreeItem<String> treeItem = new TreeItem<>(route.getTravelType()
-                + ": $" + route.getTotalPrice() + ", " + route.getTotalDuration() + " min");
+                + ": " + (!Objects.equals(route.getCost(),"N/A")?  "$" + route.getTotalPrice() : "N/A") + ", " + route.getTotalDuration() + " min");
         if (includeFromTo) {
             treeItem.getChildren().add(new TreeItem<>("Origin: " + route.getFrom()));
             treeItem.getChildren().add(new TreeItem<>("Destination: " + route.getTo()));
@@ -91,20 +91,20 @@ public class ShowResultsScene extends FXMLController implements Initializable{
         treeItem.getChildren().add(new TreeItem<>("Distance: " + route.getDistance()));
         treeItem.getChildren().add(new TreeItem<>("Duration: " + route.getDuration()));
 
-        double driveCost = Double.parseDouble(route.getDistance().replace("mi", "").replace(",", ""));
+//        double driveCost = Double.parseDouble(route.getDistance().replace("mi", "").replace(",", ""));
 
-        if (route.getTravelType().equals("Driving")) {
-            treeItem.getChildren().add(new TreeItem<>("Cost: $" + decfor.format((driveCost / 25.4) * 3.66)));
-            if (driveCost > 100) {
-                treeItem.getChildren().add(new TreeItem<>("RideShare Cost: N/A"));
-            } else {
-                treeItem.getChildren().add(new TreeItem<>("RideShare Cost: $" + decfor.format((driveCost * 1.5))));
-            }
-        } else if (route.getTravelType().equals("Transit")) {
-            treeItem.getChildren().add(new TreeItem<>("Cost: $" + decfor.format(driveCost * 0.228)));
-        } else {
-            treeItem.getChildren().add(new TreeItem<>("Cost: " + route.getCost()));
-        }
+//        if (route.getTravelType().equals("Driving")) {
+//            treeItem.getChildren().add(new TreeItem<>("Cost: $" + decfor.format((driveCost / 25.4) * 3.66)));
+//            if (driveCost > 100) {
+//                treeItem.getChildren().add(new TreeItem<>("RideShare Cost: N/A"));
+//            } else {
+//                treeItem.getChildren().add(new TreeItem<>("RideShare Cost: $" + decfor.format((driveCost * 1.5))));
+//            }
+//        } else if (route.getTravelType().equals("Transit")) {
+//            treeItem.getChildren().add(new TreeItem<>("Cost: $" + decfor.format(driveCost * 0.228)));
+//        } else {
+//            treeItem.getChildren().add(new TreeItem<>("Cost: " + route.getCost()));
+//        }
         return treeItem;
     }
 

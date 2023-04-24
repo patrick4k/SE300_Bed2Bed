@@ -2,6 +2,7 @@ package com.se.se300_bed2bed.routes;
 
 import com.google.gson.Gson;
 
+import java.text.DecimalFormat;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,25 +19,33 @@ public interface Route {
         route.duration = ((String) mapped_route.get("duration"));
         route.to = ((String) mapped_route.get("to"));
         route.from = ((String) mapped_route.get("from"));
+        route.cost = "$0";
+
+        final DecimalFormat decfor = new DecimalFormat("0.00");
+        double driveCost = Double.parseDouble(route.distance.replace("mi", "").replace(",", ""));
 
         String travelType = ((String) mapped_route.get("travelType"));
         if (travelType == null) {
             Double mode = (Double) mapped_route.get("mode");
             if (mode == -1) {
                 travelType = "Ride Share";
+                if (driveCost > 300)
+                    route.cost = "N/A";
+                else
+                    route.cost = "$" + decfor.format((driveCost * 0.3 * 1.5));
             } else if (mode == 0.0) {
                 travelType = "Driving";
+                route.cost = "$" + decfor.format((driveCost / 25.4) * 3.66);
             } else if (mode == 1) {
                 travelType = "Walking";
             } else if (mode == 2) {
                 travelType = "Biking";
             } else if (mode == 3) {
                 travelType = "Transit";
+                route.cost = "$" + decfor.format(driveCost * 0.228);
             } else {
                 System.out.println("mode outside of -1-3 received");
             }
-
-            route.cost = "$0"; // TODO Get cost of route
 
         }
 

@@ -1,6 +1,7 @@
 package com.se.se300_bed2bed.routes;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,6 +37,7 @@ public class GroundRoute implements Route {
     @Override
     public double getTotalPrice() {
         String cleanCost = this.getCost().replace("$","");
+        if (Objects.equals(this.getCost(), "N/A")) return -1;
         return Double.parseDouble(cleanCost);
     }
 
