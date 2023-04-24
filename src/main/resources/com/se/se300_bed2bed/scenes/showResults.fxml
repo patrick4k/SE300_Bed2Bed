@@ -11,7 +11,10 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Button layoutX="490.0" layoutY="352.0" mnemonicParsing="false" onAction="#saveRouteToDB" prefWidth="88.0" text="Save route" />
+      <Button layoutX="490.0" layoutY="352.0" mnemonicParsing="false" onAction="#saveRouteToDB" prefWidth="88.0" text="Save route">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
       <Label layoutX="21.0" layoutY="54.0" prefHeight="48.0" prefWidth="154.0" text="Destination:" textFill="#2592f2">
          <font>
             <Font name="System Bold" size="24.0" />
@@ -28,5 +31,19 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
+      <Button layoutX="490.0" layoutY="127.0" mnemonicParsing="false" onAction="#sortByPriceAscending" prefHeight="26.0" prefWidth="88.0" text="Ascending" />
+      <Label layoutX="519.0" layoutY="100.0" text="Price">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button layoutX="490.0" layoutY="161.0" mnemonicParsing="false" onAction="#sortByPriceDescending" prefHeight="26.0" prefWidth="88.0" text="Descending" />
+      <Label layoutX="507.0" layoutY="211.0" text="Duration">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button layoutX="490.0" layoutY="237.0" mnemonicParsing="false" onAction="#sortByDurationAscending" prefHeight="26.0" prefWidth="88.0" text="Accending" />
+      <Button layoutX="490.0" layoutY="271.0" mnemonicParsing="false" onAction="#sortByDurationDescending" prefHeight="26.0" prefWidth="88.0" text="Descending" />
    </children>
 </AnchorPane>

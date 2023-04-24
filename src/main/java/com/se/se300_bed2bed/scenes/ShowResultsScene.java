@@ -9,16 +9,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
-
-import static com.google.gson.JsonParser.parseString;
+import java.util.*;
 
 public class ShowResultsScene extends FXMLController implements Initializable{
     @Override
@@ -46,6 +40,8 @@ public class ShowResultsScene extends FXMLController implements Initializable{
     //public static Label destinationStaticLabel;
  //    */
 
+    private List<Route> routes;
+
     public void run(){
        destinationStaticLabel = destinationLabel;
        onGoTo();
@@ -60,7 +56,15 @@ public class ShowResultsScene extends FXMLController implements Initializable{
         originLabel.setText(Bed2BedApp.manager.getFrom());
         destinationLabel.setText(Bed2BedApp.manager.getTo());
 
-        for (Route route: Bed2BedApp.manager.getRoutes()) {
+        this.routes = Bed2BedApp.manager.getRoutes();
+        putResults(Bed2BedApp.manager.getRoutes());
+    }
+
+    private void putResults(List<Route> routes) {
+        for (Object item: this.treeView.getRoot().getChildren())
+            ((TreeItem) item).getChildren().clear();
+
+        for (Route route: routes) {
             GroundRoute ground;
             AirRoute air;
             if (route instanceof GroundRoute) {
@@ -69,12 +73,13 @@ public class ShowResultsScene extends FXMLController implements Initializable{
             } else if (route instanceof AirRoute) {
                 air = (AirRoute) route;
                 ((TreeItem) treeView.getRoot().getChildren().get(0)).getChildren().add(getTreeItem(air));
-           }
+            }
         }
     }
 
     private TreeItem<String> getTreeItem(GroundRoute route, boolean includeFromTo) {
-        TreeItem<String> treeItem = new TreeItem<>(route.getTravelType());
+        TreeItem<String> treeItem = new TreeItem<>(route.getTravelType()
+                + ": $" + route.getTotalPrice() + ", " + route.getTotalDuration() + " min");
         if (includeFromTo) {
             treeItem.getChildren().add(new TreeItem<>("Origin: " + route.getFrom()));
             treeItem.getChildren().add(new TreeItem<>("Destination: " + route.getTo()));
@@ -86,7 +91,8 @@ public class ShowResultsScene extends FXMLController implements Initializable{
     }
 
     private TreeItem<String> getTreeItem(AirRoute route) {
-        TreeItem<String> treeItem = new TreeItem<>(route.getTravelType() + ": " + route.getCost());
+        TreeItem<String> treeItem = new TreeItem<>(route.getTravelType()
+                + ": $" + route.getTotalPrice() + ", " + route.getTotalDuration() + " min");
 
         TreeItem<String> toAirport = getTreeItem(route.getToAirport(), true);
         toAirport.setValue("To Airport: " + toAirport.getValue());
@@ -95,13 +101,38 @@ public class ShowResultsScene extends FXMLController implements Initializable{
         treeItem.getChildren().add(new TreeItem<>("Origin: " + route.getFrom()));
         treeItem.getChildren().add(new TreeItem<>("Destination: " + route.getTo()));
         treeItem.getChildren().add(new TreeItem<>("Duration: " + route.getDuration()));
-        treeItem.getChildren().add(new TreeItem<>("Cost: $" + route.getCost()));
+        treeItem.getChildren().add(new TreeItem<>("Cost: " + route.getCost()));
 
         TreeItem<String> fromAirport = getTreeItem(route.getFromAirport(), true);
         fromAirport.setValue("From Airport: " + fromAirport.getValue());
         treeItem.getChildren().add(fromAirport);
 
         return treeItem;
+    }
+
+    @FXML
+    protected void sortByPriceAscending() {
+        List<Route> routes = Bed2BedApp.manager.getRoutes();
+        routes.sort(Comparator.comparingDouble(Route::getTotalPrice));
+        putResults(routes);
+    }
+    @FXML
+    protected void sortByPriceDescending() {
+        List<Route> routes = Bed2BedApp.manager.getRoutes();
+        routes.sort((route1, route2) -> -Double.compare(route1.getTotalPrice(), route2.getTotalPrice()));
+        putResults(routes);
+    }
+    @FXML
+    protected void sortByDurationAscending() {
+        List<Route> routes = Bed2BedApp.manager.getRoutes();
+        routes.sort(Comparator.comparingDouble(Route::getTotalDuration));
+        putResults(routes);
+    }
+    @FXML
+    protected void sortByDurationDescending() {
+        List<Route> routes = Bed2BedApp.manager.getRoutes();
+        routes.sort((route1, route2) -> -Double.compare(route1.getTotalDuration(), route2.getTotalDuration()));
+        putResults(routes);
     }
 
     @Override
