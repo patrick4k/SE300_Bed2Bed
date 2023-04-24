@@ -13,12 +13,14 @@ import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.sql.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
 import static com.google.gson.JsonParser.parseString;
+import static java.lang.Double.parseDouble;
 
 public class ShowResultsScene extends FXMLController implements Initializable{
     @Override
@@ -29,6 +31,7 @@ public class ShowResultsScene extends FXMLController implements Initializable{
     private TreeView treeView;
     //@FXML
     //Label originLabel;
+    private static final DecimalFormat decfor = new DecimalFormat("0.00");
 
     @FXML
     public Label originLabel;
@@ -81,7 +84,21 @@ public class ShowResultsScene extends FXMLController implements Initializable{
         }
         treeItem.getChildren().add(new TreeItem<>("Distance: " + route.getDistance()));
         treeItem.getChildren().add(new TreeItem<>("Duration: " + route.getDuration()));
-        treeItem.getChildren().add(new TreeItem<>("Cost: " + route.getCost()));
+
+        double driveCost = Double.parseDouble(route.getDistance().replace(".", "").replace("mi", "").replace(",", ""));
+
+        if (route.getTravelType().equals("Driving")) {
+            treeItem.getChildren().add(new TreeItem<>("Cost: $" + decfor.format((driveCost / 25.4) * 3.66)));
+            if (driveCost > 100) {
+                treeItem.getChildren().add(new TreeItem<>("RideShare Cost: N/A"));
+            } else {
+                treeItem.getChildren().add(new TreeItem<>("RideShare Cost: $" + decfor.format((driveCost * 1.5))));
+            }
+        } else if (route.getTravelType().equals("Transit")) {
+            treeItem.getChildren().add(new TreeItem<>("Cost: $" + decfor.format(driveCost * 0.228)));
+        } else {
+            treeItem.getChildren().add(new TreeItem<>("Cost: " + route.getCost()));
+        }
         return treeItem;
     }
 

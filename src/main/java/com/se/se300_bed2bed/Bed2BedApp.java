@@ -48,10 +48,8 @@ public class Bed2BedApp extends Application {
         Bed2BedApp.stage = stage;
         List<Class<? extends FXMLController>> fxmlClasses = List.of(
                 // ADD SCENE CLASSES HERE
-                MapScene.class,
                 LoginScene.class,
                 CreateAccountScene.class,
-                GoogleMapScene.class,
                 ChooseStartEndLocations.class,
                 CalculatingScene.class,
                 ShowResultsScene.class
