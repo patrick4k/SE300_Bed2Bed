@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.se.se300_bed2bed.routes.GroundRoute;
 import com.se.se300_bed2bed.routes.Route;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class RouteGroundOnly extends AbstractRouteCalc {
@@ -25,11 +27,17 @@ public class RouteGroundOnly extends AbstractRouteCalc {
     @Override
     protected void processRoutes(String[] routes) {
         Gson gson = new Gson();
-        this.routes = new GroundRoute[routes.length];
+        List<Route> routesList = new ArrayList<>();
         for (int i = 0; i < routes.length; i++) {
             Map route = gson.fromJson(routes[i], Map.class);
-            this.routes[i] = Route.fromGroundOutput(route);
+            routesList.add(Route.fromGroundOutput(route));
+            if (((Double) route.get("mode")) == 0) {
+                route.put("mode",-1.0);
+                routesList.add(Route.fromGroundOutput(route));
+            }
         }
+        this.routes = new Route[routesList.size()];
+        this.routes = routesList.toArray(this.routes);
         this.finishedComputing = true;
         this.onFinishComputing.fire();
     }

@@ -91,7 +91,7 @@ public class ShowResultsScene extends FXMLController implements Initializable{
         treeItem.getChildren().add(new TreeItem<>("Distance: " + route.getDistance()));
         treeItem.getChildren().add(new TreeItem<>("Duration: " + route.getDuration()));
 
-        double driveCost = Double.parseDouble(route.getDistance().replace(".", "").replace("mi", "").replace(",", ""));
+        double driveCost = Double.parseDouble(route.getDistance().replace("mi", "").replace(",", ""));
 
         if (route.getTravelType().equals("Driving")) {
             treeItem.getChildren().add(new TreeItem<>("Cost: $" + decfor.format((driveCost / 25.4) * 3.66)));

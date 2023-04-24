@@ -18,12 +18,13 @@ public interface Route {
         route.duration = ((String) mapped_route.get("duration"));
         route.to = ((String) mapped_route.get("to"));
         route.from = ((String) mapped_route.get("from"));
-        route.cost = "$0"; // TODO Get cost of route
 
         String travelType = ((String) mapped_route.get("travelType"));
         if (travelType == null) {
             Double mode = (Double) mapped_route.get("mode");
-            if (mode == 0.0) {
+            if (mode == -1) {
+                travelType = "Ride Share";
+            } else if (mode == 0.0) {
                 travelType = "Driving";
             } else if (mode == 1) {
                 travelType = "Walking";
@@ -32,8 +33,11 @@ public interface Route {
             } else if (mode == 3) {
                 travelType = "Transit";
             } else {
-                System.out.println("mode outside of 0-3 received");
+                System.out.println("mode outside of -1-3 received");
             }
+
+            route.cost = "$0"; // TODO Get cost of route
+
         }
 
         route.travelType = travelType;

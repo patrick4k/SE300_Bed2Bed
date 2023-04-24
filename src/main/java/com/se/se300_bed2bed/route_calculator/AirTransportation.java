@@ -193,8 +193,8 @@ public class AirTransportation {
 
                 for (Map<String, String> fromAirportMap : fromAirportMaps) {
 
-                    if (Objects.equals(toAirportMap.get("travelType"), "Driving")
-                            && Objects.equals(fromAirportMap.get("travelType"), "Driving")) {
+                    if (Objects.equals(toAirportMap.get("travelType"), "Ride Share")
+                            && Objects.equals(fromAirportMap.get("travelType"), "Ride Share")) {
 
                         Map<String, Map> airGroundRoutes = new HashMap<>();
 
