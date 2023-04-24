@@ -4,19 +4,29 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="originLabel" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.se.se300_bed2bed.scenes.ShowResultsScene">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.se.se300_bed2bed.scenes.ShowResultsScene">
    <children>
-      <Label fx:id="originLabel" layoutX="14.0" layoutY="14.0" prefHeight="48.0" prefWidth="88.0" text="Origin: ">
+      <Label layoutX="21.0" layoutY="14.0" prefHeight="48.0" prefWidth="88.0" text="Origin: " textFill="#2592f2">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Button layoutX="505.0" layoutY="352.0" mnemonicParsing="false" onAction="#saveRouteToDB" text="Save route" />
-      <Label fx:id="destinationLabel" layoutX="14.0" layoutY="62.0" prefHeight="48.0" prefWidth="154.0" text="Destination:">
+      <Button layoutX="490.0" layoutY="352.0" mnemonicParsing="false" onAction="#saveRouteToDB" prefWidth="88.0" text="Save route" />
+      <Label layoutX="21.0" layoutY="54.0" prefHeight="48.0" prefWidth="154.0" text="Destination:" textFill="#2592f2">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <TreeView fx:id="treeView" layoutX="21.0" layoutY="110.0" onContextMenuRequested="#chooseType" onMouseClicked="#chooseType" prefHeight="270.0" prefWidth="251.0" />
+      <TreeView fx:id="treeView" layoutX="21.0" layoutY="110.0" onContextMenuRequested="#chooseType" onMouseClicked="#chooseType" prefHeight="270.0" prefWidth="447.0" />
+      <Label fx:id="originLabel" layoutX="109.0" layoutY="14.0" prefHeight="48.0" prefWidth="361.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="destinationLabel" layoutX="169.0" layoutY="54.0" prefHeight="48.0" prefWidth="299.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

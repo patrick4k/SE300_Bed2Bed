@@ -7,10 +7,8 @@ import com.se.se300_bed2bed.routes.GroundRoute;
 import com.se.se300_bed2bed.routes.Route;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.text.Text;
 
 import java.net.URL;
@@ -33,7 +31,7 @@ public class ShowResultsScene extends FXMLController implements Initializable{
     //Label originLabel;
 
     @FXML
-    public Label originStaticLabel;
+    public Label originLabel;
 
     @FXML
     Label destinationLabel;
@@ -54,35 +52,62 @@ public class ShowResultsScene extends FXMLController implements Initializable{
     }
 
     @Override
-    public void onGoTo() {
-        // TODO: Results GUI, populate with results
-        System.out.println("Displaying Results:");
+    public void onGoTo(Scene scene) {
+        treeView = (TreeView) scene.getRoot().getChildrenUnmodifiable().get(3);
+        originLabel = (Label) scene.getRoot().getChildrenUnmodifiable().get(4);
+        destinationLabel = (Label) scene.getRoot().getChildrenUnmodifiable().get(5);
+
+        originLabel.setText(Bed2BedApp.manager.getFrom());
+        destinationLabel.setText(Bed2BedApp.manager.getTo());
 
         for (Route route: Bed2BedApp.manager.getRoutes()) {
             GroundRoute ground;
             AirRoute air;
             if (route instanceof GroundRoute) {
                 ground = (GroundRoute) route;
-                System.out.println("---------------------------------------------------------------------");
-                System.out.println(ground.getTravelType());
-                System.out.println(ground.getFrom());
-
-                // ITS NOT WORKING :(((((( idk y it worked before
-                destinationStaticLabel.setText("Destination: " + ground.getTo());
-                System.out.println(ground.getDistance());
-                System.out.println(ground.getDuration());
-
+                ((TreeItem) treeView.getRoot().getChildren().get(1)).getChildren().add(getTreeItem(ground, false));
             } else if (route instanceof AirRoute) {
                 air = (AirRoute) route;
+                ((TreeItem) treeView.getRoot().getChildren().get(0)).getChildren().add(getTreeItem(air));
            }
         }
     }
+
+    private TreeItem<String> getTreeItem(GroundRoute route, boolean includeFromTo) {
+        TreeItem<String> treeItem = new TreeItem<>(route.getTravelType());
+        if (includeFromTo) {
+            treeItem.getChildren().add(new TreeItem<>("Origin: " + route.getFrom()));
+            treeItem.getChildren().add(new TreeItem<>("Destination: " + route.getTo()));
+        }
+        treeItem.getChildren().add(new TreeItem<>("Distance: " + route.getDistance()));
+        treeItem.getChildren().add(new TreeItem<>("Duration: " + route.getDuration()));
+        treeItem.getChildren().add(new TreeItem<>("Cost: " + route.getCost()));
+        return treeItem;
+    }
+
+    private TreeItem<String> getTreeItem(AirRoute route) {
+        TreeItem<String> treeItem = new TreeItem<>(route.getTravelType() + ": " + route.getCost());
+
+        TreeItem<String> toAirport = getTreeItem(route.getToAirport(), true);
+        toAirport.setValue("To Airport: " + toAirport.getValue());
+        treeItem.getChildren().add(toAirport);
+
+        treeItem.getChildren().add(new TreeItem<>("Origin: " + route.getFrom()));
+        treeItem.getChildren().add(new TreeItem<>("Destination: " + route.getTo()));
+        treeItem.getChildren().add(new TreeItem<>("Duration: " + route.getDuration()));
+        treeItem.getChildren().add(new TreeItem<>("Cost: $" + route.getCost()));
+
+        TreeItem<String> fromAirport = getTreeItem(route.getFromAirport(), true);
+        fromAirport.setValue("From Airport: " + fromAirport.getValue());
+        treeItem.getChildren().add(fromAirport);
+
+        return treeItem;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        GroundRoute ground = new GroundRoute();
-        String travelType = ground.getTravelType();
-        TreeItem<String> transportMethods = new TreeItem<>("View Transportation Methods");
+        TreeItem<String> transportMethods = new TreeItem<>("Available Routes");
         treeView.setRoot(transportMethods);
 
         TreeItem<String> airTransport = new TreeItem<>("Air Transportation");
@@ -92,11 +117,9 @@ public class ShowResultsScene extends FXMLController implements Initializable{
 
         treeView.setRoot(transportMethods);
 
-        TreeItem<String> allAirMethods = new TreeItem<>("All Air Methods");
-        airTransport.getChildren().addAll(allAirMethods);
-
-        TreeItem<String> allGroundMethods = new TreeItem<>(travelType);
-        groundTransport.getChildren().addAll(allGroundMethods);
+        transportMethods.setExpanded(true);
+        airTransport.setExpanded(true);
+        groundTransport.setExpanded(true);
 
     }
     @FXML

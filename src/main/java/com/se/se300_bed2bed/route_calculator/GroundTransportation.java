@@ -61,8 +61,8 @@ public class GroundTransportation {
             }, false);
 
             // Set from and to values in engine, execute calcRoute for all 4 modes
-            engine.executeScript("to = \"" + this.startLocation + "\";"
-                    +   "from = \"" + this.endLocation + "\";"
+            engine.executeScript("to = \"" + this.endLocation + "\";"
+                    +   "from = \"" + this.startLocation + "\";"
                     +   "calcRoute(0);" // Drive
                     +   "calcRoute(1);" // Walk
                     +   "calcRoute(2);" // Bike

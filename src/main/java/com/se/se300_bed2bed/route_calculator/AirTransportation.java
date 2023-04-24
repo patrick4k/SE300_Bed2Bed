@@ -13,6 +13,7 @@ import com.se.se300_bed2bed.util.RouteComputeEvent;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class AirTransportation {
@@ -45,45 +46,83 @@ public class AirTransportation {
 
 
         /* Get closest airport -------------------------------------------------------------------------------------- */
-        String originCode, originAddress, destinationCode, destinationAddress;
+        String originCode, originAddress = "", destinationCode, destinationAddress = "", to, from;
+        Location[] originLocations, destinationLocations;
         try {
-            String from = Bed2BedApp.manager.getFromCityCountry().isBlank()?
+            from = Bed2BedApp.manager.getFromCityCountry().isBlank()?
                     Bed2BedApp.manager.getFrom() : Bed2BedApp.manager.getFromCityCountry();
 
             System.out.println("From: " + from);
 
-            Location[] locations = amadeus.referenceData.locations.get(Params
+             originLocations = amadeus.referenceData.locations.get(Params
                     .with("keyword", from)
                     .and("subType", Locations.AIRPORT));
 
-            originCode = locations[0].getIataCode();
-            originAddress = originCode + " AIRPORT " + from;
-
-
-            String to = Bed2BedApp.manager.getToCityCountry().isBlank()?
+            to = Bed2BedApp.manager.getToCityCountry().isBlank()?
                     Bed2BedApp.manager.getTo() : Bed2BedApp.manager.getToCityCountry();
 
             System.out.println("To: " + to);
 
-            locations = amadeus.referenceData.locations.get(Params
+            destinationLocations = amadeus.referenceData.locations.get(Params
                     .with("keyword", to)
                     .and("subType", Locations.AIRPORT));
-
-            destinationCode = locations[0].getIataCode();
-            destinationAddress = destinationCode + " AIRPORT " + to;
 
         } catch (Exception e) {
             this.onFailResponse();
             return;
         }
 
-        if (originCode.isBlank() || destinationCode.isBlank()) {
-            this.onFailResponse();
-            return;
+        /* Find Flight Options -------------------------------------------------------------------------------------- */
+        FlightOfferSearch[] flightOffersSearches = new FlightOfferSearch[0];
+        boolean success = false;
+
+        for (Location originLocation: originLocations) {
+            originCode = originLocation.getIataCode();
+            originAddress = originCode + " AIRPORT " + from;
+            for (Location destinationLocation: destinationLocations) {
+                destinationCode = destinationLocation.getIataCode();
+                destinationAddress = destinationCode + " AIRPORT " + to;
+
+                try {
+                    Params parameters = Params.with("originLocationCode", originCode)
+                            .and("destinationLocationCode", destinationCode)
+                            .and("departureDate", Bed2BedApp.manager.getTargetDate())
+                            .and("currencyCode", "USD")
+                            .and("adults", 1)
+                            .and("max", 10);
+                    flightOffersSearches = amadeus.shopping.flightOffersSearch.get(parameters);
+
+                } catch (ResponseException ignore) {}
+
+                if (flightOffersSearches.length > 0) {
+                    success = true;
+                    break;
+                }
+            }
+            if (success) break;
         }
 
-        System.out.println("origin: " + originCode + "\n\t" + originAddress);
-        System.out.println("destination: " + destinationCode + "\n\t" + destinationAddress);
+        if (!success) this.onFailResponse();
+
+        // Add flight routes to flightMaps
+        this.flightMaps = new HashMap[flightOffersSearches.length];
+        for (int i = 0; i < flightOffersSearches.length; i++) {
+            Map<String, String> route = new HashMap<>();
+            FlightOfferSearch flight = flightOffersSearches[i];
+            route.put("cost", flight.getPrice().getGrandTotal());
+            StringBuilder duration = new StringBuilder();
+            for (FlightOfferSearch.Itinerary itinerary: flight.getItineraries()) {
+                duration.append(" + ").append(itinerary.getDuration());
+            }
+            route.put("duration",duration.toString());
+            route.put("from", originAddress);
+            route.put("to", destinationAddress);
+
+            this.flightMaps[i] = route;
+        }
+
+        System.out.println("Found flight information");
+        incrementSuccess();
 
         /* Find from -> fromAirport --------------------------------------------------------------------------------- */
         RouteGroundOnly groundToAirport = new RouteGroundOnly(
@@ -138,41 +177,6 @@ public class AirTransportation {
             incrementSuccess();
         });
 
-
-        /* Find Flight Options -------------------------------------------------------------------------------------- */
-        FlightOfferSearch[] flightOffersSearches;
-        try {
-            flightOffersSearches = amadeus.shopping.flightOffersSearch.get(
-                    Params.with("originLocationCode", originCode)
-                            .and("destinationLocationCode", destinationCode)
-                            .and("departureDate", Bed2BedApp.manager.getTargetDate())
-                            .and("currencyCode", "USD")
-                            .and("adults", 1)
-                            .and("max", 5));
-        } catch (ResponseException e) {
-            this.onFailResponse();
-            return;
-        }
-
-        // Add flight routes to flightMaps
-        this.flightMaps = new HashMap[flightOffersSearches.length];
-        for (int i = 0; i < flightOffersSearches.length; i++) {
-            Map<String, String> route = new HashMap<>();
-            FlightOfferSearch flight = flightOffersSearches[i];
-            route.put("cost", flight.getPrice().getGrandTotal());
-            StringBuilder duration = new StringBuilder();
-            for (FlightOfferSearch.Itinerary itinerary: flight.getItineraries()) {
-                duration.append(" + ").append(itinerary.getDuration());
-            }
-            route.put("duration",duration.toString());
-            route.put("from", originAddress);
-            route.put("to", destinationAddress);
-
-            this.flightMaps[i] = route;
-        }
-
-        System.out.println("Found flight information");
-        incrementSuccess();
     }
 
     private void incrementSuccess() {
@@ -181,22 +185,31 @@ public class AirTransportation {
         if (routesComputed[0] < 3) return;
 
         int route_count = 0;
-        String[] routes = new String[flightMaps.length*toAirportMaps.length];
+        String[] routes = new String[flightMaps.length];
 
         for (Map<String, String> flightMap : flightMaps) {
 
-            for (int i = 0; i < toAirportMaps.length; i++) {
+            for (Map<String, String> toAirportMap : toAirportMaps) {
 
-                Map<String, Map> airGroundRoutes = new HashMap<>();
+                for (Map<String, String> fromAirportMap : fromAirportMaps) {
 
-                airGroundRoutes.put("toAirport", toAirportMaps[i]);
-                airGroundRoutes.put("flight", flightMap);
-                airGroundRoutes.put("fromAirport", fromAirportMaps[i]);
+                    if (Objects.equals(toAirportMap.get("travelType"), "Driving")
+                            && Objects.equals(fromAirportMap.get("travelType"), "Driving")) {
 
-                String airGroundRoutesString = gson.toJson(airGroundRoutes);
+                        Map<String, Map> airGroundRoutes = new HashMap<>();
 
-                routes[route_count] = airGroundRoutesString;
-                route_count++;
+                        airGroundRoutes.put("toAirport", toAirportMap);
+                        airGroundRoutes.put("flight", flightMap);
+                        airGroundRoutes.put("fromAirport", fromAirportMap);
+
+                        String airGroundRoutesString = gson.toJson(airGroundRoutes);
+
+                        routes[route_count] = airGroundRoutesString;
+                        route_count++;
+                    }
+
+                }
+
             }
 
         }
