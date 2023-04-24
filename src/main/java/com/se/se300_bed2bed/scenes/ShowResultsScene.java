@@ -98,7 +98,7 @@ public class ShowResultsScene extends FXMLController implements Initializable{
             if (driveCost > 100) {
                 treeItem.getChildren().add(new TreeItem<>("RideShare Cost: N/A"));
             } else {
-                treeItem.getChildren().add(new TreeItem<>("RideShare Cost: $" + decfor.format((driveCost * 1.5))));
+                treeItem.getChildren().add(new TreeItem<>("RideShare Cost: $" + decfor.format((driveCost *0.3)*1.5)));
             }
         } else if (route.getTravelType().equals("Transit")) {
             treeItem.getChildren().add(new TreeItem<>("Cost: $" + decfor.format(driveCost * 0.228)));

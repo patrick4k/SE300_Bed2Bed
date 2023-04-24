@@ -63,7 +63,7 @@ public class CalculatingScene extends FXMLController {
                 Bed2BedApp.manager.compute(timeout::stop);
             }
 
-            if (progressBar.getProgress() >= 1) {
+            if (progressBar.getProgress() >= 2) {
                 errorLabel.setText("This is taking longer than expected...\n\n" +
                         "Check your internet connection\n" +
                         "and if you inputted correct addresses");

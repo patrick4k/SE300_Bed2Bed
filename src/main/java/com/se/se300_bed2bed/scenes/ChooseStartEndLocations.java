@@ -45,6 +45,7 @@ public class ChooseStartEndLocations extends FXMLController {
         // Abort on null saved data
         if (Bed2BedApp.manager.getUser().saved_data == null) return;
 
+        // THIS PART IS NOT WORKING: error "cannot read the array length because <local4> is null
         /*
         Map[] saved_data = gson.fromJson(Bed2BedApp.manager.getUser().saved_data, Map[].class);
         for (Map route: saved_data) {
@@ -53,6 +54,8 @@ public class ChooseStartEndLocations extends FXMLController {
                 return;
             }
         }
+
+
          */
 
     }
