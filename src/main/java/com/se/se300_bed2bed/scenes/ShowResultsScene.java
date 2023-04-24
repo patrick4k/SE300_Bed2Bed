@@ -82,8 +82,9 @@ public class ShowResultsScene extends FXMLController implements Initializable{
     }
 
     private TreeItem<String> getTreeItem(GroundRoute route, boolean includeFromTo) {
+        final DecimalFormat decfor = new DecimalFormat("0.00");
         TreeItem<String> treeItem = new TreeItem<>(route.getTravelType()
-                + ": " + (!Objects.equals(route.getCost(),"N/A")?  "$" + route.getTotalPrice() : "N/A") + ", " + route.getTotalDuration() + " min");
+                + ": " + (!Objects.equals(route.getCost(),"N/A")?  "$" + decfor.format(route.getTotalPrice()) : "N/A") + ", " + route.getTotalDuration() + " min");
         if (includeFromTo) {
             treeItem.getChildren().add(new TreeItem<>("Origin: " + route.getFrom()));
             treeItem.getChildren().add(new TreeItem<>("Destination: " + route.getTo()));
@@ -109,8 +110,9 @@ public class ShowResultsScene extends FXMLController implements Initializable{
     }
 
     private TreeItem<String> getTreeItem(AirRoute route) {
+        final DecimalFormat decfor = new DecimalFormat("0.00");
         TreeItem<String> treeItem = new TreeItem<>(route.getTravelType()
-                + ": $" + route.getTotalPrice() + ", " + route.getTotalDuration() + " min");
+                + ": $" + decfor.format(route.getTotalPrice()) + ", " + route.getTotalDuration() + " min");
 
         TreeItem<String> toAirport = getTreeItem(route.getToAirport(), true);
         toAirport.setValue("To Airport: " + toAirport.getValue());
