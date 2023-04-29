@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.se.se300_bed2bed.scenes.CalculatingScene">
+   <children>
+      <ProgressBar fx:id="progressBar" layoutX="16.0" layoutY="368.0" prefHeight="18.0" prefWidth="569.0" progress="0.1" />
+      <Label fx:id="loadingLabel" layoutX="123.0" layoutY="38.0" text="Finding the best travel options!" textFill="#2592f2">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="errorLabel" alignment="CENTER" layoutX="147.0" layoutY="273.0" prefHeight="94.0" prefWidth="308.0" textAlignment="CENTER" textFill="RED" />
+      <ImageView fx:id="planeGif" fitHeight="200.0" fitWidth="200.0" layoutX="200.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true" />
+      <Label alignment="TOP_LEFT" layoutX="14.0" layoutY="14.0" onMouseClicked="#goBack" prefHeight="35.0" prefWidth="69.0" text="Go Back" textFill="#2592f2" underline="true">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

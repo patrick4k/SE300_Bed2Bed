@@ -34,5 +34,12 @@
 		<level name="Maven: org.apiguardian:apiguardian-api:1.1.2" value="project"/>
 		<level name="Maven: org.junit.jupiter:junit-jupiter-engine:5.8.2" value="project"/>
 		<level name="Maven: org.junit.platform:junit-platform-engine:1.8.2" value="project"/>
+		<level name="Maven: com.mysql:mysql-connector-j:8.0.32" value="project"/>
+		<level name="Maven: com.google.protobuf:protobuf-java:3.21.9" value="project"/>
+		<level name="Maven: com.amadeus:amadeus-java:7.0.0" value="project"/>
+		<level name="Maven: org.openjfx:javafx-web:17.0.2" value="project"/>
+		<level name="Maven: org.openjfx:javafx-web:win:17.0.2" value="project"/>
+		<level name="Maven: org.openjfx:javafx-media:17.0.2" value="project"/>
+		<level name="Maven: org.openjfx:javafx-media:win:17.0.2" value="project"/>
 	</levels>
 </component>

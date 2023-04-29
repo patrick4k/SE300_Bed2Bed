@@ -3,8 +3,8 @@ package com.se.se300_bed2bed.util;
 public class LLAPosition {
 
     /* Constructor */
-    public LLAPosition(double longitude, double latitude) {
-        this.setLL(longitude, latitude);
+    public LLAPosition(double latitude, double longitude) {
+        this.setLL(latitude, longitude);
     }
 
 
@@ -24,7 +24,7 @@ public class LLAPosition {
 
 
     /* Setters */
-    public void setLL(double longitude, double latitude) {
+    public void setLL(double latitude, double longitude) {
         this.setLong(longitude);
         this.setLat(latitude);
     }
